@@ -1,0 +1,28 @@
+##### task 1
+
+##### task 2
+
+design, train, evaluate PyTorch CNN to predict shown time.
+
+data = 18.000 grayscale images (150\*150 and 75\*75)
+
+labels = integer hour and minute displayed
+
+**split**: 80% training, 10% validation, 10% testing
+
+**note**: shuffle the dataset, files might be ordered.
+
+prototype on 75\*75 data and report on final 150\*150 data.
+
+approaches:
+
+1. classification
+2. regression
+3. multi-head models in pytorch
+
+compare them
+
+evaluation metric
+
+common sense error: absolute time difference between predicted and true time with 12-hour wrap-around. core objective is to minimize this error.
+
