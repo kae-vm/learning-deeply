@@ -1,8 +1,8 @@
 import numpy as np
 
 np.random.seed(99)
-images = np.load("data/075_images.npy")
-labels = np.load("data/075_labels.npy")
+images = np.load("data/150_images.npy")
+labels = np.load("data/150_labels.npy")
 n = labels.shape[0]
 indices = np.arange(n)
 np.random.shuffle(indices)
@@ -18,3 +18,10 @@ X_test = images[test_ind]
 y_train = labels[train_ind]
 y_valid = labels[valid_ind]
 y_test = labels[test_ind]
+
+np.save("data/150_images_train.npy", X_train)
+np.save("data/150_images_valid.npy", X_valid)
+np.save("data/150_images_test.npy", X_test)
+np.save("data/150_labels_train.npy", y_train)
+np.save("data/150_labels_valid.npy", y_valid)
+np.save("data/150_labels_test.npy", y_test)
