@@ -71,11 +71,10 @@ class Net(nn.Module):
         return x
 
 
-def trainer_and_tester():
+def trainer_and_tester(optimizer):
 	net = Net()
-	criterion = nn.CrossEntropyLoss()
-	optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
-	for epoch in range(100):  # loop over the dataset multiple times
+    criterion = nn.CrossEntropyLoss() 
+	for epoch in range(40):  # loop over the dataset multiple times
 	
 	    running_loss = 0.0
 	    for i, data in enumerate(train_dataloader, 0):
@@ -93,11 +92,11 @@ def trainer_and_tester():
 	
 	        # print statistics
 	        running_loss += loss.item()
-	        if i % 100 == 99:    # print every 100 mini-batches
-	            print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 100:.3f}')
+	        if i % 500 == 499:    # print every 100 mini-batches
+	            print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 500:.3f}')
 	            running_loss = 0.0
 	
-	print('Finished Training')
+	print(f'Finished Training with optimiser {optimizer}')
 	
 	net.eval()  # important if the model contains dropout or batch normalization
 	
@@ -120,3 +119,12 @@ def trainer_and_tester():
 	
 	print(f"Test Loss: {avg_loss:.4f}")
 	print(f"Test Accuracy: {accuracy * 100:.2f}%")
+
+
+optimizers = [
+        optim.SGD(net.parameters(), lr=0.001, momentum=0.9),
+        optim.SGD(net.parameters(), lr=0.005, momentum=0.7),
+        optim.Adam(net.parameters(), lr=0.003, betas=(0.9, 0.995)),
+        optim.Adam(net.parameters(), lr=0.0001, weight_decay=1e-5),
+        optim.Adamw(net.parameters())
+    ]
