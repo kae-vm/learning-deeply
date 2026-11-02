@@ -71,60 +71,62 @@ class Net(nn.Module):
         return x
 
 
-def trainer_and_tester(optimizer):
-	net = Net()
+def trainer_and_tester(net, optimizer):
     criterion = nn.CrossEntropyLoss() 
-	for epoch in range(40):  # loop over the dataset multiple times
-	
-	    running_loss = 0.0
-	    for i, data in enumerate(train_dataloader, 0):
-	        # get the inputs; data is a list of [inputs, labels]
-	        inputs, labels = data
-	
-	        # zero the parameter gradients
-	        optimizer.zero_grad()
-	
-	        # forward + backward + optimize
-	        outputs = net(inputs)
-	        loss = criterion(outputs, labels)
-	        loss.backward()
-	        optimizer.step()
-	
-	        # print statistics
-	        running_loss += loss.item()
-	        if i % 500 == 499:    # print every 100 mini-batches
-	            print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 500:.3f}')
-	            running_loss = 0.0
-	
-	print(f'Finished Training with optimiser {optimizer}')
-	
-	net.eval()  # important if the model contains dropout or batch normalization
-	
-	test_loss = 0.0
-	correct = 0
-	total = 0
-	
-	with torch.no_grad():  # no gradients needed for testing
-	    for images, labels in test_dataloader:
-	        outputs = net(images)          # shape: (batch_size, 10)
-	        loss = criterion(outputs, labels)
-	
-	        test_loss += loss.item() * images.size(0)
-	        predicted = outputs.argmax(dim=1)  # class with highest score
-	        correct += (predicted == labels).sum().item()
-	        total += labels.size(0)
-	
-	avg_loss = test_loss / total
-	accuracy = correct / total
-	
-	print(f"Test Loss: {avg_loss:.4f}")
-	print(f"Test Accuracy: {accuracy * 100:.2f}%")
+    for epoch in range(40):  # loop over the dataset multiple times
+    
+        running_loss = 0.0
+        for i, data in enumerate(train_dataloader, 0):
+            # get the inputs; data is a list of [inputs, labels]
+            inputs, labels = data
+    
+            # zero the parameter gradients
+            optimizer.zero_grad()
+    
+            # forward + backward + optimize
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+    
+            # print statistics
+            running_loss += loss.item()
+            if i % 200 == 199:    # print every 100 mini-batches
+                print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 200:.3f}')
+                running_loss = 0.0
+    
+    print(f'Finished Training with optimiser {optimizer}')
+    
+    net.eval()  # important if the model contains dropout or batch normalization
+    
+    test_loss = 0.0
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():  # no gradients needed for testing
+        for images, labels in test_dataloader:
+            outputs = net(images)          # shape: (batch_size, 10)
+            loss = criterion(outputs, labels)
+    
+            test_loss += loss.item() * images.size(0)
+            predicted = outputs.argmax(dim=1)  # class with highest score
+            correct += (predicted == labels).sum().item()
+            total += labels.size(0)
+    
+    avg_loss = test_loss / total
+    accuracy = correct / total
+    
+    print(f"Test Loss: {avg_loss:.4f}")
+    print(f"Test Accuracy: {accuracy * 100:.2f}%")
 
-
+net = Net()
 optimizers = [
         optim.SGD(net.parameters(), lr=0.001, momentum=0.9),
         optim.SGD(net.parameters(), lr=0.005, momentum=0.7),
         optim.Adam(net.parameters(), lr=0.003, betas=(0.9, 0.995)),
         optim.Adam(net.parameters(), lr=0.0001, weight_decay=1e-5),
-        optim.Adamw(net.parameters())
+        optim.AdamW(net.parameters())
     ]
+for optimizer in optimizers:
+    print(optimizer)
+    trainer_and_tester(net, optimizer)
