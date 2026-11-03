@@ -1,20 +1,10 @@
 # TO DO
-    # Build a MLP with nn.Sequential.
-        # Experiment systematically with different choices for:
-            # • Parameter initializations (torch.nn.init)
-            # • Activation functions (nn.ReLU, nn.LeakyReLU, nn.GELU, etc.)
-            # • Optimizers and learning rates (optim.SGD with momentum, optim.Adam, optim.AdamW)
-            # • Regularization techniques (nn.Dropout, weight decay / L2 penalty)
-            # • Architectural variations (depth, width, number and size of convolutional kernels)
-
-    # Split the training data 90 (training)/10 (validation) -> monitor overfitting + guide hyperparameter choices.
-        # Select the 3 best-performing hyperparameter configurations based on validation performance.
-        # Train on CIFAR-10 dataset to examine whether the performance gains transfer across datasets.
+    # Select the 3 best-performing hyperparameter configurations based on validation performance.
+    # Train on CIFAR-10 dataset to examine whether the performance gains transfer across datasets.
 
     # Discuss your findings in the report (e.g., why do certain architectures or hyperparameters generalize differently on CIFAR-10 compared to Fashion-MNIST?).
 
     # Note: The goal is not merely to achieve the highest possible test accuracy, but to gain solid practical intuition for tuning deep networks, conducting systematic experiments, and documenting findings clearly
-
 
 # ====================================
 # Import libraries
@@ -147,54 +137,54 @@ def evaluate_model(model, dataloader):
 
     return accuracy
 
-# # ======================================================
-# # Run activation experiments
-# # ======================================================
-# activations = {
-#     "ReLU": nn.ReLU(),
-#     "LeakyReLU": nn.LeakyReLU(),
-#     "GELU": nn.GELU()
-# }
-# for activation_name, activation in activations.items():
-#     print(f"\nRunning experiment with {activation_name}")
+# ======================================================
+# Run activation experiments
+# ======================================================
+activations = {
+    "ReLU": nn.ReLU(),
+    "LeakyReLU": nn.LeakyReLU(),
+    "GELU": nn.GELU()
+}
+for activation_name, activation in activations.items():
+    print(f"\nRunning experiment with {activation_name}")
 
-#     model = MLP(
-#         hidden_size=256,
-#         activation=activation,
-#         dropout=0.2
-#     )
+    model = MLP(
+        hidden_size=256,
+        activation=activation,
+        dropout=0.2
+    )
 
-#     optimizer = optim.SGD(
-#         model.parameters(),
-#         lr=0.01,
-#         momentum=0.9
-#     )
+    optimizer = optim.SGD(
+        model.parameters(),
+        lr=0.01,
+        momentum=0.9
+    )
 
-#     train_model(
-#         model,
-#         train_dataloader,
-#         optimizer,
-#         criterion,
-#         epochs=10
-#     )
+    train_model(
+        model,
+        train_dataloader,
+        optimizer,
+        criterion,
+        epochs=10
+    )
 
-#     validation_accuracy = evaluate_model(
-#         model,
-#         valid_dataloader
-#     )
-#     print(
-#         f"{activation_name} validation accuracy: "
-#         f"{validation_accuracy:.4f}"
-#     )
+    validation_accuracy = evaluate_model(
+        model,
+        valid_dataloader
+    )
+    print(
+        f"{activation_name} validation accuracy: "
+        f"{validation_accuracy:.4f}"
+    )
 
-#     results.append({
-#         "activation": activation_name,
-#         "hidden_size": 256,
-#         "dropout": 0.2,
-#         "optimizer": "SGD",
-#         "learning_rate": 0.01,
-#         "validation_accuracy": validation_accuracy
-#     })
+    results.append({
+        "activation": activation_name,
+        "hidden_size": 256,
+        "dropout": 0.2,
+        "optimizer": "SGD",
+        "learning_rate": 0.01,
+        "validation_accuracy": validation_accuracy
+    })
 
 best_activation = nn.LeakyReLU()  # Based on the results, LeakyReLU performed the best
 
@@ -292,15 +282,99 @@ for lr in [0.001, 0.01, 0.1]:
         "validation_accuracy": validation_accuracy
     })
 
+best_lr = 0.01  # Based on the results, learning rate of 0.01 performed the best
+
 # ======================================================
 # Run hidden size experiments
 # ======================================================
 hidden_sizes = [128, 256, 512]
+for hidden_size in hidden_sizes:
+    print(f"\nRunning experiment with hidden size {hidden_size}")
+
+    model = MLP(
+        hidden_size=hidden_size,
+        activation=best_activation,
+        dropout=0.2
+    )
+
+    optimizer = best_optimizer(
+        model.parameters(),
+        lr=0.01
+    )
+
+    train_model(
+        model,
+        train_dataloader,
+        optimizer,
+        criterion,
+        epochs=10
+    )
+
+    validation_accuracy = evaluate_model(
+        model,
+        valid_dataloader
+    )
+    print(
+        f"Hidden size {hidden_size} validation accuracy: "
+        f"{validation_accuracy:.4f}"
+    )
+
+    results.append({
+        "activation": "LeakyReLU",
+        "hidden_size": hidden_size,
+        "dropout": 0.2,
+        "optimizer": best_optimizer.__name__,
+        "learning_rate": best_lr,
+        "validation_accuracy": validation_accuracy
+    })
+
+best_hidden_size = 128  # Based on the results, hidden size of 128 performed the best
+
 # ======================================================
 # Run dropout experiments
 # ======================================================
+dropout_rates = [0.0, 0.2, 0.5]
+for dropout in dropout_rates:
+    print(f"\nRunning experiment with dropout rate {dropout}")
 
+    model = MLP(
+        hidden_size=best_hidden_size,
+        activation=best_activation,
+        dropout=dropout
+    )
 
+    optimizer = best_optimizer(
+        model.parameters(),
+        lr=best_lr
+    )
+
+    train_model(
+        model,
+        train_dataloader,
+        optimizer,
+        criterion,
+        epochs=10
+    )
+
+    validation_accuracy = evaluate_model(
+        model,
+        valid_dataloader
+    )
+    print(
+        f"Dropout rate {dropout} validation accuracy: "
+        f"{validation_accuracy:.4f}"
+    )
+
+    results.append({
+        "activation": "LeakyReLU",
+        "hidden_size": best_hidden_size,
+        "dropout": dropout,
+        "optimizer": best_optimizer.__name__,
+        "learning_rate": best_lr,
+        "validation_accuracy": validation_accuracy
+    })
+
+best_dropout = 0.0  # Based on the results, dropout of 0.0 performed the best
 
 # Save for later?
 
