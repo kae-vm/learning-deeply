@@ -4,7 +4,7 @@
 import torch
 from torch import nn, optim
 import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import Dataset, DataLoader, random_split
 from torchvision import utils
 from torchvision import datasets
 from torchvision.transforms import v2
@@ -26,8 +26,11 @@ test_data = datasets.FashionMNIST(
     transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)])
 )
 
+train_data, valid_data = random_split(training_data, [0.9, 0.1])
+
 batch_size = 64
-train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=True)
+train_dataloader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+valid_dataloader = DataLoader(valid_data, batch_size=batch_size, shuffle=True)
 test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
 
 
@@ -35,7 +38,7 @@ test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=True)
 # Trying to see images
 # ====================================
 
-'''
+"""
 dataiter = iter(train_dataloader)
 images, labels = next(dataiter)
 
@@ -46,7 +49,7 @@ def imshow(img):
 
 # show images
 imshow(utils.make_grid(images))
-'''
+"""
 
 #=====================================
 # Setting up the CNN
@@ -71,9 +74,12 @@ class Net(nn.Module):
         return x
 
 
-def trainer_and_tester(net, optimizer):
+def train_validate_test(net, optimizer):
+    name = optimizer[0]
+    optimizer = optimizer[1]
+    # let's train
     criterion = nn.CrossEntropyLoss() 
-    for epoch in range(40):  # loop over the dataset multiple times
+    for epoch in range(10):  # loop over the dataset multiple times
     
         running_loss = 0.0
         for i, data in enumerate(train_dataloader, 0):
@@ -96,37 +102,86 @@ def trainer_and_tester(net, optimizer):
                 running_loss = 0.0
     
     print(f'Finished Training with optimiser {optimizer}')
+
+    # what's the training accuracy?
+    correct = total = 0
+    train_loss = 0.0
+    with torch.no_grad():
+        for i, data in enumerate(train_dataloader, 0):
+            inputs, labels = data
+            outputs = net(inputs)          # shape: (batch_size, 10)
+            loss = criterion(outputs, labels)
+            train_loss += loss.item() * inputs.size(0)
+            predicted = outputs.argmax(dim=1)  # class with highest score
+            correct += (predicted == labels).sum().item()
+            total += labels.size(0)
+        print(f"Training accuracy is {correct/total}:3f")
+
+    # let's validate
+    best_vloss = 1e9
+    for epoch in range(5):
+        print(f"Epoch {epoch+1}")
+        net.eval()  # important if the model contains dropout or batch normalization
+        
+        valid_loss = 0.0
+        correct = 0
+        total = 0
     
-    net.eval()  # important if the model contains dropout or batch normalization
+        with torch.no_grad():
+            for i, data in enumerate(valid_dataloader, 0):
+                inputs, labels = data
+                outputs = net(inputs)
+                loss = criterion(outputs, labels)
+                valid_loss += loss.item() * inputs.size(0)
     
+                predicted = outputs.argmax(dim=1)  # class with highest score
+                correct += (predicted == labels).sum().item()
+                total += labels.size(0)
+        
+        avg_vloss = valid_loss / total
+        accuracy = correct / total
+    
+        print(f"Valid Loss: {avg_vloss:.4f}")
+        print(f"Valid Accuracy: {accuracy * 100:.2f}%")
+    
+        if avg_vloss < best_vloss:
+            print(f"{name} model is great, with average loss {avg_vloss} better than before: {best_vloss}")
+            best_vloss = avg_vloss
+            torch.save(net.state_dict(), f"saved_models/CNN_{name}")
+    
+        saved_model = Net()
+        saved_model.load_state_dict(torch.load(f"saved_models/CNN_{name}"))
+    
+    # let's test
     test_loss = 0.0
     correct = 0
     total = 0
     
     with torch.no_grad():  # no gradients needed for testing
-        for images, labels in test_dataloader:
-            outputs = net(images)          # shape: (batch_size, 10)
+        for i, data in enumerate(test_dataloader):
+            inputs, labels = data
+            outputs = net(inputs)          # shape: (batch_size, 10)
             loss = criterion(outputs, labels)
     
-            test_loss += loss.item() * images.size(0)
+            test_loss += loss.item() * inputs.size(0)
             predicted = outputs.argmax(dim=1)  # class with highest score
             correct += (predicted == labels).sum().item()
             total += labels.size(0)
     
-    avg_loss = test_loss / total
+    avg_tloss = test_loss / total
     accuracy = correct / total
     
-    print(f"Test Loss: {avg_loss:.4f}")
+    print(f"Test Loss: {avg_tloss:.4f}")
     print(f"Test Accuracy: {accuracy * 100:.2f}%")
 
 net = Net()
-optimizers = [
-        optim.SGD(net.parameters(), lr=0.001, momentum=0.9),
-        optim.SGD(net.parameters(), lr=0.005, momentum=0.7),
-        optim.Adam(net.parameters(), lr=0.003, betas=(0.9, 0.995)),
-        optim.Adam(net.parameters(), lr=0.0001, weight_decay=1e-5),
-        optim.AdamW(net.parameters())
-    ]
-for optimizer in optimizers:
-    print(optimizer)
-    trainer_and_tester(net, optimizer)
+optimizers = {
+    "SGD_0.9": optim.SGD(net.parameters(), lr=0.001, momentum=0.9),
+    "SGD_0.7": optim.SGD(net.parameters(), lr=0.005, momentum=0.7),
+    "Adam_0.995": optim.Adam(net.parameters(), lr=0.003, betas=(0.9, 0.995)),
+    "Adam_L2": optim.Adam(net.parameters(), lr=0.0001, weight_decay=1e-5),
+    "AdamW": optim.AdamW(net.parameters())
+        }
+for optimizer in optimizers.items():
+    print(f"We will fit a model with optimiser: {optimizer[0]}")
+    train_validate_test(net, optimizer)
