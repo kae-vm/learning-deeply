@@ -278,7 +278,7 @@ for lr in [0.001, 0.01, 0.1]:
         print(f"We will fit a model with lr={lr}, decay={decay}")
         accs = train_validate_test(net, optimizer)
         print(
-            f"{name} validation accuracy: "
+            f"lr={lr} & wd={weight_decay} validation accuracy: "
             f"{accs['valid']:.4f}"
         )
         results.append({
