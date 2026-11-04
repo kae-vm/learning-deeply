@@ -1,6 +1,8 @@
 # ====================================
 # Import libraries
 # ====================================
+import random
+import pandas as pd
 import torch
 from torch import nn, optim
 import torch.nn.functional as F
@@ -73,6 +75,7 @@ def train(
     epochs=10,
     data_loader=train_dataloader
 ):
+    criterion = criterion()
     model.train()
     for epoch in range(epochs):  # loop over the dataset multiple times
 
@@ -121,6 +124,7 @@ def validate(
     data_loader=valid_dataloader,
     epochs=5
 ):
+    criterion = criterion()
     best_vloss = 1e9
     for epoch in range(epochs):
         print(f"Epoch {epoch + 1}")
@@ -157,11 +161,12 @@ def validate(
     return best_model, best_vloss, accuracy
 
 
-def test(model):
+def test(model, criterion=nn.CrossEntropyLoss):
     test_loss = 0.0
     correct = 0
     total = 0
 
+    criterion = criterion()
     with torch.no_grad():  # no gradients needed for testing
         for i, data in enumerate(test_dataloader):
             inputs, labels = data
@@ -234,6 +239,8 @@ for name, activation in activations.items():
         "optimizer": "SGD",
         "validation_accuracy": accs['valid']
     })
+
+print(pd.DataFrame(results))
 
 """
 for optimizer in optimizers.items():

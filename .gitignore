@@ -2,6 +2,8 @@ Assignment_0/data/
 Assignment_1/data/
 Assignment_2/data/
 
+Assignment_1/saved_models/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
