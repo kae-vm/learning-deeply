@@ -244,10 +244,13 @@ for name, activation in activations.items():
 """
 
 # relu does the best, so we will use it for our optimiser testing
+best_activation = F.relu
 
+"""
 for name, optimizer in optimizers.items():
     print(f"We will fit a model with optimiser: {name}")
-    accs = train_validate_test(net, optimizer)
+    model = Net()
+    accs = train_validate_test(model, optimizer)
     print(
         f"{name} validation accuracy: "
         f"{accs['valid']:.4f}"
@@ -257,5 +260,33 @@ for name, optimizer in optimizers.items():
         "optimizer": name,
         "validation_accuracy": accs['valid']
     })
+"""
+best_optimiser = optim.Adam
+
+# Adam with L2 regularisation does best, so we will use it further
+
+for lr in [0.001, 0.01, 0.1]:
+    for weight_decay in [1e-5, 5e-5, 1e-4]:
+        model = Net(activation=best_activation)
+        accs = train_validate_test(
+            model, best_optimiser(
+                model.parameters(),
+                lr=lr,
+                weight_decay=weight_decay
+            )
+        )
+        print(f"We will fit a model with lr={lr}, decay={decay}")
+        accs = train_validate_test(net, optimizer)
+        print(
+            f"{name} validation accuracy: "
+            f"{accs['valid']:.4f}"
+        )
+        results.append({
+            "activation": "ReLU",
+            "optimizer": "Adam",
+            "validation_accuracy": accs['valid'],
+            "learning_rate": lr,
+            "weight_decay": decay
+        })
 
 print(pd.DataFrame(results))
