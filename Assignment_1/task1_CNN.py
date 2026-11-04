@@ -224,6 +224,7 @@ optimizers = {
         }
 
 results = []
+"""
 for name, activation in activations.items():
     print(f"We will fit a model with activation function: {name}")
 
@@ -240,11 +241,21 @@ for name, activation in activations.items():
         "optimizer": "SGD",
         "validation_accuracy": accs['valid']
     })
+"""
+
+# relu does the best, so we will use it for our optimiser testing
+
+for name, optimizer in optimizers.items():
+    print(f"We will fit a model with optimiser: {name}")
+    accs = train_validate_test(net, optimizer)
+    print(
+        f"{name} validation accuracy: "
+        f"{accs['valid']:.4f}"
+    )
+    results.append({
+        "activation": "ReLU",
+        "optimizer": name,
+        "validation_accuracy": accs['valid']
+    })
 
 print(pd.DataFrame(results))
-
-"""
-for optimizer in optimizers.items():
-    print(f"We will fit a model with optimiser: {optimizer[0]}")
-    train_validate_test(net, optimizer[1])
-"""
