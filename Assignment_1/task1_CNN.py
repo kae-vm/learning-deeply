@@ -268,14 +268,13 @@ best_optimiser = optim.Adam
 for lr in [0.001, 0.01, 0.1]:
     for weight_decay in [1e-5, 5e-5, 1e-4]:
         model = Net(activation=best_activation)
-        accs = train_validate_test(
-            model, best_optimiser(
+        optimizer = best_optimiser(
                 model.parameters(),
                 lr=lr,
                 weight_decay=weight_decay
             )
-        )
-        print(f"We will fit a model with lr={lr}, decay={decay}")
+        accs = train_validate_test(model, optimizer)
+        print(f"We will fit a model with lr={lr}, decay={weight_decay}")
         accs = train_validate_test(net, optimizer)
         print(
             f"lr={lr} & wd={weight_decay} validation accuracy: "
@@ -286,7 +285,7 @@ for lr in [0.001, 0.01, 0.1]:
             "optimizer": "Adam",
             "validation_accuracy": accs['valid'],
             "learning_rate": lr,
-            "weight_decay": decay
+            "weight_decay": weight_decay
         })
 
 print(pd.DataFrame(results))
