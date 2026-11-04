@@ -154,7 +154,7 @@ def validate(
         if avg_vloss < best_vloss:
             print(f"new model is great, with average loss {avg_vloss} better than before: {best_vloss}")
             best_vloss = avg_vloss
-            best_model_path = f"saved_models/CNN_{name}"
+            best_model_path = "saved_models/CNN"
             torch.save(net.state_dict(), best_model_path)
 
     return best_model_path, best_vloss, accuracy
