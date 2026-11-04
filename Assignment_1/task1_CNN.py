@@ -155,7 +155,7 @@ def validate(
             print(f"{name} model is great, with average loss {avg_vloss} better than before: {best_vloss}")
             best_vloss = avg_vloss
             best_model_path = f"saved_models/CNN_{name}"
-            torch.save(net.state_dict(), path)
+            torch.save(net.state_dict(), best_model_path)
 
     return best_model_path, best_vloss, accuracy
 
@@ -223,7 +223,7 @@ optimizers = {
     "AdamW": optim.AdamW(net.parameters())
         }
 
-result = []
+results = []
 for name, activation in activations.items():
     print(f"We will fit a model with activation function: {name}")
 
@@ -236,7 +236,7 @@ for name, activation in activations.items():
         f"{accs['valid']:.4f}"
     )
     results.append({
-        "activation": activation_name,
+        "activation": name,
         "optimizer": "SGD",
         "validation_accuracy": accs['valid']
     })
