@@ -130,8 +130,6 @@ def validate(
         correct = 0
         total = 0
 
-        best_model = net.state_dict()
-
         with torch.no_grad():
             for i, data in enumerate(data_loader, 0):
                 inputs, labels = data
@@ -152,9 +150,10 @@ def validate(
         if avg_vloss < best_vloss:
             print(f"{name} model is great, with average loss {avg_vloss} better than before: {best_vloss}")
             best_vloss = avg_vloss
-            best_model = net()
+            best_model_path = f"saved_models/CNN_{name}"
+            torch.save(net.state_dict(), path)
 
-    return best_model, best_vloss, accuracy
+    return best_model_path, best_vloss, accuracy
 
 
 def test(model):
@@ -188,7 +187,9 @@ def train_validate_test(model, optimizer):
     traccuracy = train(model, optimizer)
 
     # let's validate
-    best_model, best_vloss, vaccuracy = validate(model)
+    best_model_path, best_vloss, vaccuracy = validate(model)
+    best_model = Net()
+    best_model.load_state_dict(torch.load(best_model_path))
     
     # let's test
     avg_tloss, taccuracy = test(best_model)
