@@ -107,7 +107,7 @@ def train(
     with torch.no_grad():
         for i, data in enumerate(train_dataloader, 0):
             inputs, labels = data
-            outputs = net(inputs)  # shape: (batch_size, 10)
+            outputs = model(inputs)  # shape: (batch_size, 10)
             loss = criterion(outputs, labels)
             train_loss += loss.item() * inputs.size(0)
             predicted = outputs.argmax(dim=1)  # class with highest score
@@ -126,6 +126,7 @@ def validate(
 ):
     criterion = criterion()
     best_vloss = 1e9
+    best_acc = 0.0
     for epoch in range(epochs):
         print(f"Epoch {epoch + 1}")
         model.eval()
@@ -154,10 +155,11 @@ def validate(
         if avg_vloss < best_vloss:
             print(f"new model is great, with average loss {avg_vloss} better than before: {best_vloss}")
             best_vloss = avg_vloss
+            best_acc = accuracy
             best_model_path = "saved_models/CNN"
-            torch.save(net.state_dict(), best_model_path)
+            torch.save(model.state_dict(), best_model_path)
 
-    return best_model_path, best_vloss, accuracy
+    return best_model_path, best_vloss, best_acc
 
 
 def test(model, criterion=nn.CrossEntropyLoss):
@@ -208,7 +210,7 @@ def train_validate_test(model, optimizer):
     return accuracies
 
 
-net = Net()
+model = Net()
 activations = {
     "ReLU": F.relu,
     "LeakyReLU": F.leaky_relu,
@@ -216,11 +218,11 @@ activations = {
 }
 
 optimizers = {
-    "SGD_0.9": optim.SGD(net.parameters(), lr=0.001, momentum=0.9),
-    "SGD_0.7": optim.SGD(net.parameters(), lr=0.005, momentum=0.7),
-    "Adam_0.995": optim.Adam(net.parameters(), lr=0.003, betas=(0.9, 0.995)),
-    "Adam_L2": optim.Adam(net.parameters(), lr=0.0001, weight_decay=1e-5),
-    "AdamW": optim.AdamW(net.parameters())
+    "SGD_0.9": optim.SGD(model.parameters(), lr=0.001, momentum=0.9),
+    "SGD_0.7": optim.SGD(model.parameters(), lr=0.005, momentum=0.7),
+    "Adam_0.995": optim.Adam(model.parameters(), lr=0.003, betas=(0.9, 0.995)),
+    "Adam_L2": optim.Adam(model.parameters(), lr=0.0001, weight_decay=1e-5),
+    "AdamW": optim.AdamW(model.parameters())
         }
 
 results = []
@@ -275,7 +277,7 @@ for lr in [0.001, 0.01, 0.1]:
             )
         accs = train_validate_test(model, optimizer)
         print(f"We will fit a model with lr={lr}, decay={weight_decay}")
-        accs = train_validate_test(net, optimizer)
+        accs = train_validate_test(model, optimizer)
         print(
             f"lr={lr} & wd={weight_decay} validation accuracy: "
             f"{accs['valid']:.4f}"
