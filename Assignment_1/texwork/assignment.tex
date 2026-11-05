@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{CrimsonPro, eulervm}
 \usepackage{amsmath, amssymb}
+\usepackage{graphicx}
 \title{Assignment 1: Report}
 \author{}
 \date{\today}
@@ -22,6 +23,41 @@ Tried out hidden sizes of 128, 256, and 512. Hidden size of 128 was the best, wi
 Tried out dropout values of 0.0, 0.2, and 0.5. Dropout \= 0.0 resulted in the highest validation accuracy of 0.8788.
 
 \subsection{CNN}
+We started by setting seeds for reproducibility, and then importing the MNIST dataset from \texttt{torchvision.datasets}. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
 
+\begin{figure}[htb]
+\centering	
+\includegraphics[width=0.95\textwidth]{pics/cnn.jpg}
+\caption{Sample Convolutional Neural Network}
+\label{fig:cnn}
+\end{figure}
+
+We set up a basic convolutional neural network, similar to the one depicted in Figure \ref{fig:cnn}, with two convolutional layers and max pooling between, with a customisable activation function.
+
+Defining functions for training, validating, and testing, we then moved to the systematic testing of parameters.
+
+We tested different activation functions:
+\begin{description}
+	\item[ReLU]
+		\[
+		f(x) =
+		\begin{cases}
+			x & x \ge 0 \\
+			0 & \text{otherwise}
+		\end{cases}
+		.\] 
+	\item[Leaky ReLU]
+		\[
+		f(x) =
+		\begin{cases}
+			x & x \ge 0 \\
+			mx & \text{otherwise}
+		\end{cases}
+		.\] 
+	\item[GeLU]
+		\[
+		f(x) = x \cdot\Phi(x)
+		.\] 
+\end{description}
 
 \end{document}
