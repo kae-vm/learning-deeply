@@ -273,7 +273,7 @@ best_optimiser = optim.Adam
 
 # Adam with L2 regularisation does best, so we will use it further
 
-for lr in [0.001, 0.01, 0.1]:
+for lr in [0.001, 0.01]:
     for weight_decay in [1e-5, 5e-5, 1e-4]:
         model = Net(activation=best_activation)
         optimizer = best_optimiser(
