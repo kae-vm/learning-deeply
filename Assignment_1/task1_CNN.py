@@ -62,8 +62,8 @@ class Net(nn.Module):
         x = self.pool(self.activation(self.conv1(x)))
         x = self.pool(self.activation(self.conv2(x)))
         x = torch.flatten(x, 1)  # flatten all dimensions except batch
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
+        x = self.activation(self.fc1(x))
+        x = self.activation(self.fc2(x))
         x = self.fc3(x)
         return x
 
@@ -113,7 +113,7 @@ def train(
             predicted = outputs.argmax(dim=1)  # class with highest score
             correct += (predicted == labels).sum().item()
             total += labels.size(0)
-        print(f"Training accuracy is {correct / total}:3f")
+        print(f"Training accuracy is {correct / total:3f}")
 
     return correct / total
 
@@ -217,14 +217,6 @@ activations = {
     "GELU": F.gelu
 }
 
-optimizers = {
-    "SGD_0.9": optim.SGD(model.parameters(), lr=0.001, momentum=0.9),
-    "SGD_0.7": optim.SGD(model.parameters(), lr=0.005, momentum=0.7),
-    "Adam_0.995": optim.Adam(model.parameters(), lr=0.003, betas=(0.9, 0.995)),
-    "Adam_L2": optim.Adam(model.parameters(), lr=0.0001, weight_decay=1e-5),
-    "AdamW": optim.AdamW(model.parameters())
-        }
-
 results = []
 
 for name, activation in activations.items():
@@ -248,19 +240,33 @@ for name, activation in activations.items():
 # relu does the best, so we will use it for our optimiser testing
 best_activation = F.relu
 
+optimizer_factories = {
+    "SGD_0.9": lambda params: optim.SGD(
+        params, lr=0.001, momentum=0.9
+    ),
+    "SGD_0.7": lambda params: optim.SGD(
+        params, lr=0.005, momentum=0.7
+    ),
+    "Adam_0.995": lambda params: optim.Adam(
+        params, lr=0.003, betas=(0.9, 0.995)
+    ),
+    "Adam_L2": lambda params: optim.Adam(
+        params, lr=0.0001, weight_decay=1e-5
+    ),
+    "AdamW": lambda params: optim.AdamW(params),
+}
 
-for name, optimizer in optimizers.items():
-    print(f"We will fit a model with optimiser: {name}")
-    model = Net()
+for name, make_optimizer in optimizer_factories.items():
+    torch.manual_seed(99)
+    model = Net(activation=best_activation)
+    optimizer = make_optimizer(model.parameters())
+
     accs = train_validate_test(model, optimizer)
-    print(
-        f"{name} validation accuracy: "
-        f"{accs['valid']:.4f}"
-    )
+
     results.append({
         "activation": "ReLU",
         "optimizer": name,
-        "validation_accuracy": accs['valid']
+        "validation_accuracy": accs["valid"],
     })
 
 best_optimiser = optim.Adam
@@ -275,7 +281,6 @@ for lr in [0.001, 0.01, 0.1]:
                 lr=lr,
                 weight_decay=weight_decay
             )
-        accs = train_validate_test(model, optimizer)
         print(f"We will fit a model with lr={lr}, decay={weight_decay}")
         accs = train_validate_test(model, optimizer)
         print(
