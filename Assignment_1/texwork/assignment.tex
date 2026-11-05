@@ -1,15 +1,17 @@
 \documentclass{article}
 \usepackage{CrimsonPro, eulervm}
 \usepackage{amsmath, amssymb}
+\usepackage[margins=3cm]{geometry}
+\usepackage{tabularray}
 \usepackage{graphicx}
 \title{Assignment 1: Report}
-\author{}
+\author{Martina Carminati, Sanna Plomp, Keval Mehta}
 \date{\today}
 
 \begin{document}
 \maketitle	
 
-\section{}
+\section{Learning the Basics of PyTorch}
 \subsection{MLP}
 
 Started with a baseline model with hidden\_size = 256, dropout = 0.2, optimizer = SGD, and learning\_rate = 0.01. Used a batch of 64 and 10 epochs. Here, we varied the activation layers. Tried out ReLU, LeakyReLU, and GELU. Using a 90/10 split for training and validation, LeakyReLU resulted in the highest validation accuracy \= 0.9018. 
@@ -22,7 +24,7 @@ Tried out hidden sizes of 128, 256, and 512. Hidden size of 128 was the best, wi
 
 Tried out dropout values of 0.0, 0.2, and 0.5. Dropout \= 0.0 resulted in the highest validation accuracy of 0.8788.
 
-\subsection{CNN}
+\subsection{Convolutional Neural Networks}
 We started by setting seeds for reproducibility, and then importing the MNIST dataset from \texttt{torchvision.datasets}. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
 
 \begin{figure}[htb]
@@ -59,5 +61,41 @@ We tested different activation functions:
 		f(x) = x \cdot\Phi(x)
 		.\] 
 \end{description}
+
+		We performed this testing with 10 epochs for training, and 5 for validation, which saved the state of the best model to a directory. The test performance of that model was then calculated. The performance of the different activation functions is given in Table \ref{tab:activations}.
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+}
+Activation & Optimiser & {Validation\\Accuracy} \\
+ReLU & SGD & \\
+Leaky ReLU & SGD & \\
+GELU & SGD & \\
+\end{tblr}
+\caption{Performance on validation dataset by different activation functions}
+\label{tab:activations}
+\end{table}
+
+As we can see in the table, ReLU performed best, so we will use it to fit the rest.
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[3,c,m]X[c,m]},
+	hlines, vlines,
+}
+Activation & Optimiser & {Validation\\Accuracy} \\
+ReLU & SGD(lr\(=0.001\), momentum\(=0.9\)) & \\
+ReLU & SGD(lr\(=0.005\), momentum\(=0.7\)) & \\
+ReLU & Adam(lr\(=0.003\), betas\(=(0.9, 0.995)\)) & \\
+ReLU & Adam(lr\(=0.0001\), weight\_decay\(=10^{-5}\)) & \\
+ReLU & AdamW & \\
+\end{tblr}
+\caption{Performance on validation dataset by different optimisers}
+\label{tab:optimisers}
+\end{table}
+
+From Table \ref{tab:optimisers}, we can see Adam with L2-regularisation does best, so we will use that.
 
 \end{document}

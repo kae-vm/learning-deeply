@@ -122,6 +122,14 @@ INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\amsfonts\amssymb.st
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\amsfonts\amssymb.sty
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\amsfonts\amsfonts.sty
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\amsfonts\amsfonts.sty
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.sty
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\generic\iftex\ifvtex.sty
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\geometry\geometry.cfg
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\tabularray\tabularray.sty
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\tabularray\tabularray.sty
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphicx.sty
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphicx.sty
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\tex\latex\graphics\graphics.sty
@@ -350,6 +358,8 @@ INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\e
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\euler\euex10.pfb
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\euler\eufm10.pfb
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\euler\eufm10.pfb
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\euler\eufm7.pfb
+INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\euler\eufm7.pfb
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\euler\eurm10.pfb
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\euler\eurm10.pfb
 INPUT C:\Users\keval\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\symbols\msam10.pfb

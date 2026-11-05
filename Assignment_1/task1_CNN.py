@@ -224,7 +224,7 @@ optimizers = {
         }
 
 results = []
-"""
+
 for name, activation in activations.items():
     print(f"We will fit a model with activation function: {name}")
 
@@ -241,12 +241,12 @@ for name, activation in activations.items():
         "optimizer": "SGD",
         "validation_accuracy": accs['valid']
     })
-"""
+
 
 # relu does the best, so we will use it for our optimiser testing
 best_activation = F.relu
 
-"""
+
 for name, optimizer in optimizers.items():
     print(f"We will fit a model with optimiser: {name}")
     model = Net()
@@ -260,7 +260,7 @@ for name, optimizer in optimizers.items():
         "optimizer": name,
         "validation_accuracy": accs['valid']
     })
-"""
+
 best_optimiser = optim.Adam
 
 # Adam with L2 regularisation does best, so we will use it further

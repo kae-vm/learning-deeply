@@ -1,5 +1,5 @@
 # Fdb version 4
-["lualatex"] 1793873805.22064 "assignment.tex" "assignment.pdf" "assignment" 1793873809.61424 0
+["lualatex"] 1793876135.03383 "assignment.tex" "assignment.pdf" "assignment" 1793876140.44014 2
   "C:/Users/keval/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1789642213 251401 568035f1cc807650576a2740e3cc4561 ""
   "C:/Users/keval/AppData/Local/MiKTeX/luatex-cache/generic/fonts/otl/crimsonpro-bold.luc" 1774254148 298622 c4112c5ae1312a9d4495f16fa6bf8622 ""
   "C:/Users/keval/AppData/Local/MiKTeX/luatex-cache/generic/fonts/otl/crimsonpro-bolditalic.luc" 1774254149 305841 241d1651c93fc4d679b1a0b303e71e75 ""
@@ -47,6 +47,7 @@
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1247596667 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/euex10.pfb" 1335456787 12536 a46bc0672764104789d46e9c8de8f188 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eufm10.pfb" 1335366146 21098 d4aee7c0aac232caac5688b586b9363c ""
+  "C:/Users/keval/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eufm7.pfb" 1335366146 21251 56705123063d7b34002d6b6e7142345e ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eurm10.pfb" 1335366146 22644 35cfbc2e737f53c1da991002473b4310 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1247596673 31764 459c573c03a4949a528c2cc7f557e217 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/fonts/vf/public/eulervm/zeuex10.vf" 1105455114 860 44fdac6c57269a45f8f95eb68b24d6ec ""
@@ -59,6 +60,7 @@
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mkii" 1580390158 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifluatex.sty" 1734114575 492 1994775aa15b0d1289725a0b1bbc2d4c ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty" 1734114575 7984 7dbb9280f03c0a315425f1b4f35d43ee ""
+  "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifvtex.sty" 1734114575 1057 525c2192b5febbd8c1f662c9468335bb ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifxetex.sty" 1734114575 488 4565444a3e75e59cb2702dc42e18f482 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/generic/pdftexcmds/pdftexcmds.lua" 1623005277 9447 5e9f52f1871707a5d27dea360afbe4cb ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/generic/unicode-data/CaseFolding.txt" 1758882188 87539 6b7075ab2647623eab0e52d7dfa4ffbb ""
@@ -94,6 +96,8 @@
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.cfg" 1759156201 549 c4adac819276241fea8eb79c5ab7b99e ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.lua" 1759156201 3093 45d92459336621d00a54275cf3b7e6c6 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/fontspec/fontspec.sty" 1759156201 3804 debc05110ffb506cef68ea4e72c7bcee ""
+  "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.cfg" 1773583286 1083 f69f5eb2d8e249286c59dd1340122e59 ""
+  "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.sty" 1773583286 41904 7711079366884e0d15963c9d40019853 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.cfg" 1465894292 1224 978390e9c2234eab29404bc21b268d1e ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/luatex.def" 1762694372 19638 37067ecbda4d4f23cc1cad2b298b6c6c ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphics.sty" 1749322634 18363 69bb4f5538964bfea50d1e6d89cbe69f ""
@@ -105,6 +109,7 @@
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty" 1768987099 6558 45786cbbf5684a09ee65aa45a7b367e0 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/l3packages/xparse/xparse.sty" 1761203377 10176 c2fc1c663b3f3899ddac6e6ed3fb1d7e ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/latexconfig/lualatexquotejobname.lua" 1308175312 1031 977f79ff10b802fc398926378bec58e9 ""
+  "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/tabularray/tabularray.sty" 1766750256 301639 61a43d2a0c705928a6bb3abe6086b58c ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/lua-uni-algos/lua-uni-case.lua" 1757240288 1916 bc93b4a554f03a6a84c3692f1e89d9be ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/lua-uni-algos/lua-uni-normalize.lua" 1757240288 21275 815062d444234db6ef353cd513d13173 ""
@@ -150,8 +155,8 @@
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/luaotfload-tounicode.lua" 1740607740 7529 21fe79d2526f3c3d789a9cc0366347ab ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/luaotfload-unicode.lua" 1740607740 7918 4272855a25780b80472f3b58edd95e33 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/luaotfload.lua" 1740607740 13566 16df94dd2de231b2bca0aaa0190941fe ""
-  "assignment.aux" 1793873808 491 920b313992e3d4e8c41eeda34549fe71 "lualatex"
-  "assignment.tex" 1793873798 2443 c839f5affc4cb0f1629c59eac75fa958 ""
+  "assignment.aux" 1793876139 970 7e7828c122d0b9646df02908e05ed94f "lualatex"
+  "assignment.tex" 1793876134 3913 7356e60e4756c7939e065402c54a86c1 ""
   "c:/users/keval/appdata/local/programs/miktex/fonts/opentype/public/lm/lmmono10-regular.otf" 1256929440 64684 c6f5a48921f83c1a51d9384f785ddd5a ""
   "pics/cnn.jpg" 1793871146 122813 ccb2b9a85366ce3bb4fee9a86add2534 ""
   (generated)
