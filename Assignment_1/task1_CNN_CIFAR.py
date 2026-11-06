@@ -53,20 +53,22 @@ param_combs = [
         {'lr': 1e-3, 'wd': 1e-5, 'b': (0.95, 0.995)}
     ]
 results = []
-for param in param_combs:
+optimiser_factories = {
+        "Adam": lambda params: optim.Adam(params, lr=1e-3, weight_decay=1e-5, betas=(0.9, 0.999)),
+        "AdamW": lambda params: optim.AdamW(params, lr=1e-3),
+        "SGD": lambda params: optim.SGD(params, lr=0.001, momentum=0.9)
+    }
+
+for name, make_optimiser in optimiser_factories:
+    torch.manual_seed(99)
     model = Net(activation=F.gelu)
-    optimiser = optim.Adam(
-            model.parameters(),
-            lr=param['lr'],
-            weight_decay=param['wd'],
-            betas=param['b']
-        )
+    optimiser = make_optimiser(model.parameters())
     accs = train_validate_test(model, optimiser, cifar_trainloader, cifar_testloader)
     results.append({
-            'Learning Rate': param['lr'],
-            'Weight Decay': param['wd'],
-            'Betas': param['b'],
-            'Test Accuracy': accs['test']
-        })
+        'Learning Rate': param['lr'],
+        'Weight Decay': param['wd'],
+        'Betas': param['b'],
+        'Test Accuracy': accs['test']
+    })
 
 pd.DataFrame(results).to_csv("cifar_results.csv", index=False)
