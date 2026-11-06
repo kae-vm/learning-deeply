@@ -10,46 +10,46 @@ Parameter Group 0
     nesterov: False
     weight_decay: 0
 ).
-[1,   200] loss: 2.303
-[1,   400] loss: 2.289
-[1,   600] loss: 2.243
-[1,   800] loss: 1.794
-[2,   200] loss: 1.003
-[2,   400] loss: 0.927
-[2,   600] loss: 0.873
-[2,   800] loss: 0.834
-[3,   200] loss: 0.811
-[3,   400] loss: 0.772
-[3,   600] loss: 0.774
-[3,   800] loss: 0.744
-[4,   200] loss: 0.724
-[4,   400] loss: 0.716
-[4,   600] loss: 0.680
-[4,   800] loss: 0.671
-[5,   200] loss: 0.650
-[5,   400] loss: 0.647
-[5,   600] loss: 0.623
-[5,   800] loss: 0.619
-[6,   200] loss: 0.602
-[6,   400] loss: 0.577
-[6,   600] loss: 0.593
-[6,   800] loss: 0.578
-[7,   200] loss: 0.565
-[7,   400] loss: 0.560
-[7,   600] loss: 0.550
-[7,   800] loss: 0.559
-[8,   200] loss: 0.536
-[8,   400] loss: 0.538
-[8,   600] loss: 0.533
-[8,   800] loss: 0.518
-[9,   200] loss: 0.526
-[9,   400] loss: 0.509
-[9,   600] loss: 0.520
-[9,   800] loss: 0.498
-[10,   200] loss: 0.504
-[10,   400] loss: 0.491
-[10,   600] loss: 0.494
-[10,   800] loss: 0.502
+[1,   200] loss: 2.301
+[1,   400] loss: 2.295
+[1,   600] loss: 2.284
+[1,   800] loss: 2.252
+[2,   200] loss: 1.911
+[2,   400] loss: 1.143
+[2,   600] loss: 0.957
+[2,   800] loss: 0.864
+[3,   200] loss: 0.809
+[3,   400] loss: 0.774
+[3,   600] loss: 0.745
+[3,   800] loss: 0.728
+[4,   200] loss: 0.695
+[4,   400] loss: 0.680
+[4,   600] loss: 0.699
+[4,   800] loss: 0.673
+[5,   200] loss: 0.647
+[5,   400] loss: 0.627
+[5,   600] loss: 0.622
+[5,   800] loss: 0.612
+[6,   200] loss: 0.606
+[6,   400] loss: 0.579
+[6,   600] loss: 0.579
+[6,   800] loss: 0.563
+[7,   200] loss: 0.552
+[7,   400] loss: 0.558
+[7,   600] loss: 0.530
+[7,   800] loss: 0.554
+[8,   200] loss: 0.538
+[8,   400] loss: 0.525
+[8,   600] loss: 0.512
+[8,   800] loss: 0.513
+[9,   200] loss: 0.500
+[9,   400] loss: 0.516
+[9,   600] loss: 0.502
+[9,   800] loss: 0.489
+[10,   200] loss: 0.489
+[10,   400] loss: 0.484
+[10,   600] loss: 0.468
+[10,   800] loss: 0.464
 Finished Training with optimiser SGD (
 Parameter Group 0
     dampening: 0
@@ -61,28 +61,28 @@ Parameter Group 0
     nesterov: False
     weight_decay: 0
 )
-Training accuracy is 0.825833
+Training accuracy is 0.824167
 Epoch 1
-Valid Loss: 0.4906
-Valid Accuracy: 81.92%
-new model is great, with average loss 0.4905535066127777 better than before: 1000000000.0
+Valid Loss: 0.4781
+Valid Accuracy: 82.07%
+new model is great, with average loss 0.47813361771901447 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.4906
-Valid Accuracy: 81.92%
-new model is great, with average loss 0.4905535026391347 better than before: 0.4905535066127777
+Valid Loss: 0.4781
+Valid Accuracy: 82.07%
+new model is great, with average loss 0.4781336166063945 better than before: 0.47813361771901447
 Epoch 3
-Valid Loss: 0.4906
-Valid Accuracy: 81.92%
+Valid Loss: 0.4781
+Valid Accuracy: 82.07%
+new model is great, with average loss 0.4781336085001628 better than before: 0.4781336166063945
 Epoch 4
-Valid Loss: 0.4906
-Valid Accuracy: 81.92%
+Valid Loss: 0.4781
+Valid Accuracy: 82.07%
 Epoch 5
-Valid Loss: 0.4906
-Valid Accuracy: 81.92%
-new model is great, with average loss 0.4905535008907318 better than before: 0.4905535026391347
-Test Loss: 0.4998
-Test Accuracy: 81.36%
-ReLU validation accuracy: 0.8192
+Valid Loss: 0.4781
+Valid Accuracy: 82.07%
+Test Loss: 0.4922
+Test Accuracy: 81.72%
+ReLU validation accuracy: 0.8207
 We will fit a model with activation function: LeakyReLU
 Training with optimiser SGD (
 Parameter Group 0
@@ -95,46 +95,46 @@ Parameter Group 0
     nesterov: False
     weight_decay: 0
 ).
-[1,   200] loss: 2.302
-[1,   400] loss: 2.296
-[1,   600] loss: 2.285
-[1,   800] loss: 2.250
-[2,   200] loss: 1.702
-[2,   400] loss: 1.017
-[2,   600] loss: 0.922
-[2,   800] loss: 0.870
-[3,   200] loss: 0.812
-[3,   400] loss: 0.796
-[3,   600] loss: 0.768
-[3,   800] loss: 0.749
-[4,   200] loss: 0.720
-[4,   400] loss: 0.709
-[4,   600] loss: 0.689
-[4,   800] loss: 0.673
-[5,   200] loss: 0.654
-[5,   400] loss: 0.639
-[5,   600] loss: 0.624
-[5,   800] loss: 0.609
-[6,   200] loss: 0.588
-[6,   400] loss: 0.583
-[6,   600] loss: 0.570
-[6,   800] loss: 0.581
-[7,   200] loss: 0.552
-[7,   400] loss: 0.560
-[7,   600] loss: 0.538
-[7,   800] loss: 0.526
-[8,   200] loss: 0.528
-[8,   400] loss: 0.515
+[1,   200] loss: 2.300
+[1,   400] loss: 2.285
+[1,   600] loss: 2.228
+[1,   800] loss: 1.700
+[2,   200] loss: 1.026
+[2,   400] loss: 0.947
+[2,   600] loss: 0.869
+[2,   800] loss: 0.817
+[3,   200] loss: 0.783
+[3,   400] loss: 0.750
+[3,   600] loss: 0.714
+[3,   800] loss: 0.707
+[4,   200] loss: 0.679
+[4,   400] loss: 0.681
+[4,   600] loss: 0.668
+[4,   800] loss: 0.637
+[5,   200] loss: 0.635
+[5,   400] loss: 0.629
+[5,   600] loss: 0.615
+[5,   800] loss: 0.594
+[6,   200] loss: 0.593
+[6,   400] loss: 0.590
+[6,   600] loss: 0.563
+[6,   800] loss: 0.559
+[7,   200] loss: 0.551
+[7,   400] loss: 0.563
+[7,   600] loss: 0.542
+[7,   800] loss: 0.537
+[8,   200] loss: 0.517
+[8,   400] loss: 0.522
 [8,   600] loss: 0.524
 [8,   800] loss: 0.513
-[9,   200] loss: 0.500
-[9,   400] loss: 0.498
-[9,   600] loss: 0.492
-[9,   800] loss: 0.502
-[10,   200] loss: 0.476
-[10,   400] loss: 0.481
-[10,   600] loss: 0.481
-[10,   800] loss: 0.487
+[9,   200] loss: 0.508
+[9,   400] loss: 0.486
+[9,   600] loss: 0.501
+[9,   800] loss: 0.489
+[10,   200] loss: 0.494
+[10,   400] loss: 0.470
+[10,   600] loss: 0.469
+[10,   800] loss: 0.469
 Finished Training with optimiser SGD (
 Parameter Group 0
     dampening: 0
@@ -146,27 +146,27 @@ Parameter Group 0
     nesterov: False
     weight_decay: 0
 )
-Training accuracy is 0.830870
+Training accuracy is 0.827222
 Epoch 1
-Valid Loss: 0.4692
-Valid Accuracy: 82.80%
-new model is great, with average loss 0.4691538600126902 better than before: 1000000000.0
+Valid Loss: 0.4687
+Valid Accuracy: 82.30%
+new model is great, with average loss 0.4687160127162933 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.4692
-Valid Accuracy: 82.80%
+Valid Loss: 0.4687
+Valid Accuracy: 82.30%
+new model is great, with average loss 0.4687160088221232 better than before: 0.4687160127162933
 Epoch 3
-Valid Loss: 0.4692
-Valid Accuracy: 82.80%
-new model is great, with average loss 0.469153856754303 better than before: 0.4691538600126902
+Valid Loss: 0.4687
+Valid Accuracy: 82.30%
 Epoch 4
-Valid Loss: 0.4692
-Valid Accuracy: 82.80%
+Valid Loss: 0.4687
+Valid Accuracy: 82.30%
 Epoch 5
-Valid Loss: 0.4692
-Valid Accuracy: 82.80%
-Test Loss: 0.4895
-Test Accuracy: 82.26%
-LeakyReLU validation accuracy: 0.8280
+Valid Loss: 0.4687
+Valid Accuracy: 82.30%
+Test Loss: 0.4831
+Test Accuracy: 81.94%
+LeakyReLU validation accuracy: 0.8230
 We will fit a model with activation function: GELU
 Training with optimiser SGD (
 Parameter Group 0
@@ -181,44 +181,44 @@ Parameter Group 0
 ).
 [1,   200] loss: 2.304
 [1,   400] loss: 2.304
-[1,   600] loss: 2.304
-[1,   800] loss: 2.303
+[1,   600] loss: 2.303
+[1,   800] loss: 2.302
 [2,   200] loss: 2.302
 [2,   400] loss: 2.302
-[2,   600] loss: 2.302
+[2,   600] loss: 2.301
 [2,   800] loss: 2.301
-[3,   200] loss: 2.301
-[3,   400] loss: 2.300
-[3,   600] loss: 2.299
-[3,   800] loss: 2.298
-[4,   200] loss: 2.296
-[4,   400] loss: 2.293
-[4,   600] loss: 2.287
-[4,   800] loss: 2.266
-[5,   200] loss: 1.772
-[5,   400] loss: 1.027
-[5,   600] loss: 0.922
-[5,   800] loss: 0.857
-[6,   200] loss: 0.819
-[6,   400] loss: 0.796
-[6,   600] loss: 0.770
-[6,   800] loss: 0.752
-[7,   200] loss: 0.734
-[7,   400] loss: 0.710
-[7,   600] loss: 0.692
-[7,   800] loss: 0.674
-[8,   200] loss: 0.667
-[8,   400] loss: 0.638
-[8,   600] loss: 0.640
-[8,   800] loss: 0.625
-[9,   200] loss: 0.605
-[9,   400] loss: 0.584
-[9,   600] loss: 0.598
-[9,   800] loss: 0.579
-[10,   200] loss: 0.584
-[10,   400] loss: 0.570
-[10,   600] loss: 0.556
-[10,   800] loss: 0.531
+[3,   200] loss: 2.300
+[3,   400] loss: 2.299
+[3,   600] loss: 2.297
+[3,   800] loss: 2.295
+[4,   200] loss: 2.289
+[4,   400] loss: 2.271
+[4,   600] loss: 2.033
+[4,   800] loss: 1.106
+[5,   200] loss: 0.905
+[5,   400] loss: 0.850
+[5,   600] loss: 0.830
+[5,   800] loss: 0.773
+[6,   200] loss: 0.780
+[6,   400] loss: 0.723
+[6,   600] loss: 0.711
+[6,   800] loss: 0.700
+[7,   200] loss: 0.673
+[7,   400] loss: 0.683
+[7,   600] loss: 0.644
+[7,   800] loss: 0.621
+[8,   200] loss: 0.610
+[8,   400] loss: 0.610
+[8,   600] loss: 0.597
+[8,   800] loss: 0.578
+[9,   200] loss: 0.569
+[9,   400] loss: 0.564
+[9,   600] loss: 0.550
+[9,   800] loss: 0.554
+[10,   200] loss: 0.535
+[10,   400] loss: 0.520
+[10,   600] loss: 0.537
+[10,   800] loss: 0.522
 Finished Training with optimiser SGD (
 Parameter Group 0
     dampening: 0
@@ -230,26 +230,32 @@ Parameter Group 0
     nesterov: False
     weight_decay: 0
 )
-Training accuracy is 0.802963
+Training accuracy is 0.810630
 Epoch 1
-Valid Loss: 0.5457
-Valid Accuracy: 80.13%
-new model is great, with average loss 0.5456556285222371 better than before: 1000000000.0
+Valid Loss: 0.5199
+Valid Accuracy: 80.78%
+new model is great, with average loss 0.5199101607004801 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.5457
-Valid Accuracy: 80.13%
+Valid Loss: 0.5199
+Valid Accuracy: 80.78%
+new model is great, with average loss 0.5199101591904958 better than before: 0.5199101607004801
 Epoch 3
-Valid Loss: 0.5457
-Valid Accuracy: 80.13%
+Valid Loss: 0.5199
+Valid Accuracy: 80.78%
 Epoch 4
-Valid Loss: 0.5457
-Valid Accuracy: 80.13%
+Valid Loss: 0.5199
+Valid Accuracy: 80.78%
 Epoch 5
-Valid Loss: 0.5457
-Valid Accuracy: 80.13%
-Test Loss: 0.5886
-Test Accuracy: 78.41%
-GELU validation accuracy: 0.8013
+Valid Loss: 0.5199
+Valid Accuracy: 80.78%
+new model is great, with average loss 0.5199101548194885 better than before: 0.5199101591904958
+Test Loss: 0.5359
+Test Accuracy: 79.75%
+GELU validation accuracy: 0.8078
+  activation optimizer  validation_accuracy
+0       ReLU       SGD             0.820667
+1  LeakyReLU       SGD             0.823000
+2       GELU       SGD             0.807833
 Training with optimiser SGD (
 Parameter Group 0
     dampening: 0
@@ -263,44 +269,44 @@ Parameter Group 0
 ).
 [1,   200] loss: 2.300
 [1,   400] loss: 2.283
-[1,   600] loss: 2.217
-[1,   800] loss: 1.610
+[1,   600] loss: 2.215
+[1,   800] loss: 1.597
 [2,   200] loss: 1.008
-[2,   400] loss: 0.942
-[2,   600] loss: 0.872
-[2,   800] loss: 0.829
+[2,   400] loss: 0.941
+[2,   600] loss: 0.871
+[2,   800] loss: 0.828
 [3,   200] loss: 0.800
-[3,   400] loss: 0.788
+[3,   400] loss: 0.789
 [3,   600] loss: 0.746
-[3,   800] loss: 0.737
-[4,   200] loss: 0.711
-[4,   400] loss: 0.707
-[4,   600] loss: 0.672
-[4,   800] loss: 0.683
-[5,   200] loss: 0.659
-[5,   400] loss: 0.651
-[5,   600] loss: 0.626
-[5,   800] loss: 0.635
-[6,   200] loss: 0.602
-[6,   400] loss: 0.598
-[6,   600] loss: 0.605
-[6,   800] loss: 0.578
-[7,   200] loss: 0.572
-[7,   400] loss: 0.566
-[7,   600] loss: 0.562
-[7,   800] loss: 0.556
-[8,   200] loss: 0.535
-[8,   400] loss: 0.549
-[8,   600] loss: 0.530
-[8,   800] loss: 0.523
-[9,   200] loss: 0.534
-[9,   400] loss: 0.513
-[9,   600] loss: 0.500
+[3,   800] loss: 0.739
+[4,   200] loss: 0.713
+[4,   400] loss: 0.708
+[4,   600] loss: 0.673
+[4,   800] loss: 0.685
+[5,   200] loss: 0.660
+[5,   400] loss: 0.654
+[5,   600] loss: 0.628
+[5,   800] loss: 0.638
+[6,   200] loss: 0.604
+[6,   400] loss: 0.601
+[6,   600] loss: 0.607
+[6,   800] loss: 0.581
+[7,   200] loss: 0.573
+[7,   400] loss: 0.567
+[7,   600] loss: 0.565
+[7,   800] loss: 0.558
+[8,   200] loss: 0.536
+[8,   400] loss: 0.550
+[8,   600] loss: 0.531
+[8,   800] loss: 0.524
+[9,   200] loss: 0.533
+[9,   400] loss: 0.514
+[9,   600] loss: 0.501
 [9,   800] loss: 0.504
-[10,   200] loss: 0.496
-[10,   400] loss: 0.493
-[10,   600] loss: 0.489
-[10,   800] loss: 0.478
+[10,   200] loss: 0.497
+[10,   400] loss: 0.494
+[10,   600] loss: 0.490
+[10,   800] loss: 0.479
 Finished Training with optimiser SGD (
 Parameter Group 0
     dampening: 0
@@ -312,26 +318,26 @@ Parameter Group 0
     nesterov: False
     weight_decay: 0
 )
-Training accuracy is 0.819389
+Training accuracy is 0.818204
 Epoch 1
-Valid Loss: 0.4999
-Valid Accuracy: 81.25%
-new model is great, with average loss 0.4998994107246399 better than before: 1000000000.0
+Valid Loss: 0.5011
+Valid Accuracy: 81.12%
+new model is great, with average loss 0.5010577149391174 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.4999
-Valid Accuracy: 81.25%
+Valid Loss: 0.5011
+Valid Accuracy: 81.12%
 Epoch 3
-Valid Loss: 0.4999
-Valid Accuracy: 81.25%
+Valid Loss: 0.5011
+Valid Accuracy: 81.12%
 Epoch 4
-Valid Loss: 0.4999
-Valid Accuracy: 81.25%
-new model is great, with average loss 0.4998994081815084 better than before: 0.4998994107246399
+Valid Loss: 0.5011
+Valid Accuracy: 81.12%
+new model is great, with average loss 0.5010577131907146 better than before: 0.5010577149391174
 Epoch 5
-Valid Loss: 0.4999
-Valid Accuracy: 81.25%
-Test Loss: 0.5156
-Test Accuracy: 80.98%
+Valid Loss: 0.5011
+Valid Accuracy: 81.12%
+Test Loss: 0.5152
+Test Accuracy: 80.87%
 Training with optimiser SGD (
 Parameter Group 0
     dampening: 0
@@ -344,45 +350,45 @@ Parameter Group 0
     weight_decay: 0
 ).
 [1,   200] loss: 2.294
-[1,   400] loss: 2.151
-[1,   600] loss: 1.153
-[1,   800] loss: 0.947
+[1,   400] loss: 2.149
+[1,   600] loss: 1.151
+[1,   800] loss: 0.948
 [2,   200] loss: 0.836
 [2,   400] loss: 0.817
-[2,   600] loss: 0.775
-[2,   800] loss: 0.736
+[2,   600] loss: 0.776
+[2,   800] loss: 0.735
 [3,   200] loss: 0.714
 [3,   400] loss: 0.697
-[3,   600] loss: 0.660
-[3,   800] loss: 0.654
+[3,   600] loss: 0.659
+[3,   800] loss: 0.653
 [4,   200] loss: 0.630
-[4,   400] loss: 0.619
-[4,   600] loss: 0.585
+[4,   400] loss: 0.620
+[4,   600] loss: 0.586
 [4,   800] loss: 0.585
-[5,   200] loss: 0.562
+[5,   200] loss: 0.560
 [5,   400] loss: 0.560
-[5,   600] loss: 0.543
-[5,   800] loss: 0.539
+[5,   600] loss: 0.541
+[5,   800] loss: 0.538
 [6,   200] loss: 0.517
-[6,   400] loss: 0.511
-[6,   600] loss: 0.518
-[6,   800] loss: 0.497
-[7,   200] loss: 0.486
-[7,   400] loss: 0.489
-[7,   600] loss: 0.476
+[6,   400] loss: 0.510
+[6,   600] loss: 0.515
+[6,   800] loss: 0.496
+[7,   200] loss: 0.484
+[7,   400] loss: 0.488
+[7,   600] loss: 0.474
 [7,   800] loss: 0.468
-[8,   200] loss: 0.452
+[8,   200] loss: 0.451
 [8,   400] loss: 0.465
 [8,   600] loss: 0.450
-[8,   800] loss: 0.442
-[9,   200] loss: 0.446
-[9,   400] loss: 0.431
+[8,   800] loss: 0.441
+[9,   200] loss: 0.445
+[9,   400] loss: 0.432
 [9,   600] loss: 0.423
 [9,   800] loss: 0.418
-[10,   200] loss: 0.418
-[10,   400] loss: 0.413
-[10,   600] loss: 0.410
-[10,   800] loss: 0.401
+[10,   200] loss: 0.417
+[10,   400] loss: 0.412
+[10,   600] loss: 0.412
+[10,   800] loss: 0.400
 Finished Training with optimiser SGD (
 Parameter Group 0
     dampening: 0
@@ -394,26 +400,26 @@ Parameter Group 0
     nesterov: False
     weight_decay: 0
 )
-Training accuracy is 0.859296
+Training accuracy is 0.859667
 Epoch 1
-Valid Loss: 0.4045
-Valid Accuracy: 85.85%
-new model is great, with average loss 0.4044570415019989 better than before: 1000000000.0
+Valid Loss: 0.4044
+Valid Accuracy: 85.73%
+new model is great, with average loss 0.4044401582082113 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.4045
-Valid Accuracy: 85.85%
+Valid Loss: 0.4044
+Valid Accuracy: 85.73%
+new model is great, with average loss 0.40444015804926553 better than before: 0.4044401582082113
 Epoch 3
-Valid Loss: 0.4045
-Valid Accuracy: 85.85%
-new model is great, with average loss 0.40445704118410747 better than before: 0.4044570415019989
+Valid Loss: 0.4044
+Valid Accuracy: 85.73%
 Epoch 4
-Valid Loss: 0.4045
-Valid Accuracy: 85.85%
+Valid Loss: 0.4044
+Valid Accuracy: 85.73%
 Epoch 5
-Valid Loss: 0.4045
-Valid Accuracy: 85.85%
-Test Loss: 0.4226
-Test Accuracy: 84.66%
+Valid Loss: 0.4044
+Valid Accuracy: 85.73%
+Test Loss: 0.4222
+Test Accuracy: 84.77%
 Training with optimiser Adam (
 Parameter Group 0
     amsgrad: False
@@ -427,46 +433,46 @@ Parameter Group 0
     maximize: False
     weight_decay: 0
 ).
-[1,   200] loss: 0.927
-[1,   400] loss: 0.593
-[1,   600] loss: 0.514
-[1,   800] loss: 0.464
-[2,   200] loss: 0.429
-[2,   400] loss: 0.404
-[2,   600] loss: 0.389
-[2,   800] loss: 0.376
-[3,   200] loss: 0.349
-[3,   400] loss: 0.348
-[3,   600] loss: 0.337
-[3,   800] loss: 0.345
-[4,   200] loss: 0.316
-[4,   400] loss: 0.316
-[4,   600] loss: 0.313
-[4,   800] loss: 0.310
-[5,   200] loss: 0.292
-[5,   400] loss: 0.293
-[5,   600] loss: 0.294
-[5,   800] loss: 0.294
-[6,   200] loss: 0.266
-[6,   400] loss: 0.277
-[6,   600] loss: 0.284
-[6,   800] loss: 0.272
-[7,   200] loss: 0.259
-[7,   400] loss: 0.266
-[7,   600] loss: 0.258
-[7,   800] loss: 0.269
-[8,   200] loss: 0.240
-[8,   400] loss: 0.258
-[8,   600] loss: 0.243
-[8,   800] loss: 0.252
-[9,   200] loss: 0.240
-[9,   400] loss: 0.233
-[9,   600] loss: 0.226
-[9,   800] loss: 0.243
-[10,   200] loss: 0.221
-[10,   400] loss: 0.226
-[10,   600] loss: 0.228
-[10,   800] loss: 0.227
+[1,   200] loss: 0.882
+[1,   400] loss: 0.567
+[1,   600] loss: 0.492
+[1,   800] loss: 0.442
+[2,   200] loss: 0.402
+[2,   400] loss: 0.386
+[2,   600] loss: 0.370
+[2,   800] loss: 0.362
+[3,   200] loss: 0.334
+[3,   400] loss: 0.330
+[3,   600] loss: 0.321
+[3,   800] loss: 0.332
+[4,   200] loss: 0.302
+[4,   400] loss: 0.303
+[4,   600] loss: 0.292
+[4,   800] loss: 0.298
+[5,   200] loss: 0.263
+[5,   400] loss: 0.276
+[5,   600] loss: 0.273
+[5,   800] loss: 0.283
+[6,   200] loss: 0.246
+[6,   400] loss: 0.259
+[6,   600] loss: 0.264
+[6,   800] loss: 0.251
+[7,   200] loss: 0.238
+[7,   400] loss: 0.240
+[7,   600] loss: 0.244
+[7,   800] loss: 0.240
+[8,   200] loss: 0.215
+[8,   400] loss: 0.233
+[8,   600] loss: 0.225
+[8,   800] loss: 0.220
+[9,   200] loss: 0.209
+[9,   400] loss: 0.205
+[9,   600] loss: 0.203
+[9,   800] loss: 0.224
+[10,   200] loss: 0.193
+[10,   400] loss: 0.210
+[10,   600] loss: 0.195
+[10,   800] loss: 0.205
 Finished Training with optimiser Adam (
 Parameter Group 0
     amsgrad: False
@@ -480,26 +486,26 @@ Parameter Group 0
     maximize: False
     weight_decay: 0
 )
-Training accuracy is 0.917333
+Training accuracy is 0.931574
 Epoch 1
-Valid Loss: 0.3099
-Valid Accuracy: 89.37%
-new model is great, with average loss 0.30994264872868854 better than before: 1000000000.0
+Valid Loss: 0.2922
+Valid Accuracy: 90.05%
+new model is great, with average loss 0.29224078261852265 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.3099
-Valid Accuracy: 89.37%
+Valid Loss: 0.2922
+Valid Accuracy: 90.05%
 Epoch 3
-Valid Loss: 0.3099
-Valid Accuracy: 89.37%
-new model is great, with average loss 0.30994264566898344 better than before: 0.30994264872868854
+Valid Loss: 0.2922
+Valid Accuracy: 90.05%
 Epoch 4
-Valid Loss: 0.3099
-Valid Accuracy: 89.37%
+Valid Loss: 0.2922
+Valid Accuracy: 90.05%
 Epoch 5
-Valid Loss: 0.3099
-Valid Accuracy: 89.37%
-Test Loss: 0.3277
-Test Accuracy: 88.69%
+Valid Loss: 0.2922
+Valid Accuracy: 90.05%
+new model is great, with average loss 0.29224078059196473 better than before: 0.29224078261852265
+Test Loss: 0.3202
+Test Accuracy: 89.23%
 Training with optimiser Adam (
 Parameter Group 0
     amsgrad: False
@@ -513,46 +519,46 @@ Parameter Group 0
     maximize: False
     weight_decay: 1e-05
 ).
-[1,   200] loss: 2.072
-[1,   400] loss: 1.152
-[1,   600] loss: 0.926
-[1,   800] loss: 0.849
-[2,   200] loss: 0.773
-[2,   400] loss: 0.763
-[2,   600] loss: 0.722
-[2,   800] loss: 0.702
-[3,   200] loss: 0.680
-[3,   400] loss: 0.682
-[3,   600] loss: 0.645
-[3,   800] loss: 0.649
-[4,   200] loss: 0.628
-[4,   400] loss: 0.629
-[4,   600] loss: 0.604
-[4,   800] loss: 0.604
-[5,   200] loss: 0.588
-[5,   400] loss: 0.592
-[5,   600] loss: 0.576
-[5,   800] loss: 0.580
-[6,   200] loss: 0.561
-[6,   400] loss: 0.551
-[6,   600] loss: 0.564
-[6,   800] loss: 0.548
-[7,   200] loss: 0.542
-[7,   400] loss: 0.541
-[7,   600] loss: 0.533
-[7,   800] loss: 0.529
-[8,   200] loss: 0.514
-[8,   400] loss: 0.531
-[8,   600] loss: 0.513
-[8,   800] loss: 0.511
-[9,   200] loss: 0.514
-[9,   400] loss: 0.509
-[9,   600] loss: 0.497
-[9,   800] loss: 0.494
-[10,   200] loss: 0.497
-[10,   400] loss: 0.497
-[10,   600] loss: 0.488
-[10,   800] loss: 0.485
+[1,   200] loss: 2.034
+[1,   400] loss: 1.124
+[1,   600] loss: 0.927
+[1,   800] loss: 0.856
+[2,   200] loss: 0.781
+[2,   400] loss: 0.770
+[2,   600] loss: 0.730
+[2,   800] loss: 0.711
+[3,   200] loss: 0.688
+[3,   400] loss: 0.689
+[3,   600] loss: 0.653
+[3,   800] loss: 0.656
+[4,   200] loss: 0.635
+[4,   400] loss: 0.635
+[4,   600] loss: 0.608
+[4,   800] loss: 0.609
+[5,   200] loss: 0.593
+[5,   400] loss: 0.596
+[5,   600] loss: 0.577
+[5,   800] loss: 0.582
+[6,   200] loss: 0.564
+[6,   400] loss: 0.552
+[6,   600] loss: 0.565
+[6,   800] loss: 0.546
+[7,   200] loss: 0.541
+[7,   400] loss: 0.542
+[7,   600] loss: 0.532
+[7,   800] loss: 0.528
+[8,   200] loss: 0.513
+[8,   400] loss: 0.528
+[8,   600] loss: 0.512
+[8,   800] loss: 0.510
+[9,   200] loss: 0.513
+[9,   400] loss: 0.507
+[9,   600] loss: 0.493
+[9,   800] loss: 0.493
+[10,   200] loss: 0.495
+[10,   400] loss: 0.495
+[10,   600] loss: 0.486
+[10,   800] loss: 0.484
 Finished Training with optimiser Adam (
 Parameter Group 0
     amsgrad: False
@@ -566,26 +572,28 @@ Parameter Group 0
     maximize: False
     weight_decay: 1e-05
 )
-Training accuracy is 0.817611
+Training accuracy is 0.818130
 Epoch 1
-Valid Loss: 0.4996
-Valid Accuracy: 81.18%
-new model is great, with average loss 0.49957456954320273 better than before: 1000000000.0
+Valid Loss: 0.4968
+Valid Accuracy: 81.42%
+new model is great, with average loss 0.49680543438593544 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.4996
-Valid Accuracy: 81.18%
-new model is great, with average loss 0.4995745616753896 better than before: 0.49957456954320273
+Valid Loss: 0.4968
+Valid Accuracy: 81.42%
+new model is great, with average loss 0.49680543144543965 better than before: 0.49680543438593544
 Epoch 3
-Valid Loss: 0.4996
-Valid Accuracy: 81.18%
+Valid Loss: 0.4968
+Valid Accuracy: 81.42%
+new model is great, with average loss 0.4968054279486338 better than before: 0.49680543144543965
 Epoch 4
-Valid Loss: 0.4996
-Valid Accuracy: 81.18%
+Valid Loss: 0.4968
+Valid Accuracy: 81.42%
+new model is great, with average loss 0.4968054246902466 better than before: 0.4968054279486338
 Epoch 5
-Valid Loss: 0.4996
-Valid Accuracy: 81.18%
-Test Loss: 0.5173
-Test Accuracy: 80.92%
+Valid Loss: 0.4968
+Valid Accuracy: 81.42%
+Test Loss: 0.5128
+Test Accuracy: 80.83%
 Training with optimiser AdamW (
 Parameter Group 0
     amsgrad: False
@@ -599,46 +607,46 @@ Parameter Group 0
     maximize: False
     weight_decay: 0.01
 ).
-[1,   200] loss: 1.117
-[1,   400] loss: 0.728
-[1,   600] loss: 0.638
-[1,   800] loss: 0.563
-[2,   200] loss: 0.520
-[2,   400] loss: 0.503
-[2,   600] loss: 0.478
-[2,   800] loss: 0.460
-[3,   200] loss: 0.441
-[3,   400] loss: 0.434
-[3,   600] loss: 0.408
-[3,   800] loss: 0.408
-[4,   200] loss: 0.387
-[4,   400] loss: 0.388
-[4,   600] loss: 0.372
-[4,   800] loss: 0.366
-[5,   200] loss: 0.346
-[5,   400] loss: 0.360
-[5,   600] loss: 0.346
-[5,   800] loss: 0.353
-[6,   200] loss: 0.326
-[6,   400] loss: 0.329
-[6,   600] loss: 0.334
-[6,   800] loss: 0.320
-[7,   200] loss: 0.315
-[7,   400] loss: 0.315
-[7,   600] loss: 0.307
-[7,   800] loss: 0.314
-[8,   200] loss: 0.293
-[8,   400] loss: 0.310
-[8,   600] loss: 0.294
-[8,   800] loss: 0.292
-[9,   200] loss: 0.295
-[9,   400] loss: 0.279
-[9,   600] loss: 0.273
-[9,   800] loss: 0.286
-[10,   200] loss: 0.267
-[10,   400] loss: 0.273
-[10,   600] loss: 0.273
-[10,   800] loss: 0.271
+[1,   200] loss: 1.090
+[1,   400] loss: 0.708
+[1,   600] loss: 0.613
+[1,   800] loss: 0.542
+[2,   200] loss: 0.506
+[2,   400] loss: 0.491
+[2,   600] loss: 0.464
+[2,   800] loss: 0.443
+[3,   200] loss: 0.423
+[3,   400] loss: 0.413
+[3,   600] loss: 0.393
+[3,   800] loss: 0.393
+[4,   200] loss: 0.373
+[4,   400] loss: 0.373
+[4,   600] loss: 0.355
+[4,   800] loss: 0.350
+[5,   200] loss: 0.331
+[5,   400] loss: 0.339
+[5,   600] loss: 0.333
+[5,   800] loss: 0.334
+[6,   200] loss: 0.310
+[6,   400] loss: 0.314
+[6,   600] loss: 0.317
+[6,   800] loss: 0.302
+[7,   200] loss: 0.294
+[7,   400] loss: 0.300
+[7,   600] loss: 0.290
+[7,   800] loss: 0.300
+[8,   200] loss: 0.278
+[8,   400] loss: 0.290
+[8,   600] loss: 0.278
+[8,   800] loss: 0.277
+[9,   200] loss: 0.277
+[9,   400] loss: 0.259
+[9,   600] loss: 0.256
+[9,   800] loss: 0.267
+[10,   200] loss: 0.251
+[10,   400] loss: 0.257
+[10,   600] loss: 0.255
+[10,   800] loss: 0.253
 Finished Training with optimiser AdamW (
 Parameter Group 0
     amsgrad: False
@@ -652,564 +660,31 @@ Parameter Group 0
     maximize: False
     weight_decay: 0.01
 )
-Training accuracy is 0.904204
+Training accuracy is 0.911593
 Epoch 1
-Valid Loss: 0.2940
-Valid Accuracy: 89.25%
-new model is great, with average loss 0.29400310373306277 better than before: 1000000000.0
+Valid Loss: 0.2824
+Valid Accuracy: 89.83%
+new model is great, with average loss 0.28238514494895933 better than before: 1000000000.0
 Epoch 2
-Valid Loss: 0.2940
-Valid Accuracy: 89.25%
+Valid Loss: 0.2824
+Valid Accuracy: 89.83%
 Epoch 3
-Valid Loss: 0.2940
-Valid Accuracy: 89.25%
-new model is great, with average loss 0.2940031019449234 better than before: 0.29400310373306277
+Valid Loss: 0.2824
+Valid Accuracy: 89.83%
 Epoch 4
-Valid Loss: 0.2940
-Valid Accuracy: 89.25%
+Valid Loss: 0.2824
+Valid Accuracy: 89.83%
 Epoch 5
-Valid Loss: 0.2940
-Valid Accuracy: 89.25%
-Test Loss: 0.3265
-Test Accuracy: 88.12%
-We will fit a model with lr=0.001, decay=1e-05
-Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.001
-    maximize: False
-    weight_decay: 1e-05
-).
-[1,   200] loss: 1.098
-[1,   400] loss: 0.673
-[1,   600] loss: 0.582
-[1,   800] loss: 0.525
-[2,   200] loss: 0.495
-[2,   400] loss: 0.468
-[2,   600] loss: 0.460
-[2,   800] loss: 0.436
-[3,   200] loss: 0.418
-[3,   400] loss: 0.406
-[3,   600] loss: 0.391
-[3,   800] loss: 0.392
-[4,   200] loss: 0.371
-[4,   400] loss: 0.369
-[4,   600] loss: 0.352
-[4,   800] loss: 0.362
-[5,   200] loss: 0.337
-[5,   400] loss: 0.333
-[5,   600] loss: 0.344
-[5,   800] loss: 0.333
-[6,   200] loss: 0.322
-[6,   400] loss: 0.330
-[6,   600] loss: 0.309
-[6,   800] loss: 0.316
-[7,   200] loss: 0.303
-[7,   400] loss: 0.320
-[7,   600] loss: 0.303
-[7,   800] loss: 0.292
-[8,   200] loss: 0.291
-[8,   400] loss: 0.296
-[8,   600] loss: 0.292
-[8,   800] loss: 0.285
-[9,   200] loss: 0.280
-[9,   400] loss: 0.272
-[9,   600] loss: 0.288
-[9,   800] loss: 0.270
-[10,   200] loss: 0.264
-[10,   400] loss: 0.270
-[10,   600] loss: 0.264
-[10,   800] loss: 0.272
-Finished Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.001
-    maximize: False
-    weight_decay: 1e-05
-)
-Training accuracy is 0.901963
-Epoch 1
-Valid Loss: 0.3135
-Valid Accuracy: 88.72%
-new model is great, with average loss 0.3134849683443705 better than before: 1000000000.0
-Epoch 2
-Valid Loss: 0.3135
-Valid Accuracy: 88.72%
-Epoch 3
-Valid Loss: 0.3135
-Valid Accuracy: 88.72%
-Epoch 4
-Valid Loss: 0.3135
-Valid Accuracy: 88.72%
-Epoch 5
-Valid Loss: 0.3135
-Valid Accuracy: 88.72%
-Test Loss: 0.3387
-Test Accuracy: 87.86%
-lr=0.001 & wd=1e-05 validation accuracy: 0.8872
-We will fit a model with lr=0.001, decay=5e-05
-Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.001
-    maximize: False
-    weight_decay: 5e-05
-).
-[1,   200] loss: 1.105
-[1,   400] loss: 0.672
-[1,   600] loss: 0.596
-[1,   800] loss: 0.549
-[2,   200] loss: 0.518
-[2,   400] loss: 0.488
-[2,   600] loss: 0.475
-[2,   800] loss: 0.458
-[3,   200] loss: 0.431
-[3,   400] loss: 0.421
-[3,   600] loss: 0.424
-[3,   800] loss: 0.399
-[4,   200] loss: 0.392
-[4,   400] loss: 0.389
-[4,   600] loss: 0.365
-[4,   800] loss: 0.368
-[5,   200] loss: 0.359
-[5,   400] loss: 0.354
-[5,   600] loss: 0.340
-[5,   800] loss: 0.356
-[6,   200] loss: 0.334
-[6,   400] loss: 0.334
-[6,   600] loss: 0.326
-[6,   800] loss: 0.325
-[7,   200] loss: 0.313
-[7,   400] loss: 0.304
-[7,   600] loss: 0.317
-[7,   800] loss: 0.322
-[8,   200] loss: 0.291
-[8,   400] loss: 0.292
-[8,   600] loss: 0.297
-[8,   800] loss: 0.300
-[9,   200] loss: 0.287
-[9,   400] loss: 0.286
-[9,   600] loss: 0.283
-[9,   800] loss: 0.279
-[10,   200] loss: 0.261
-[10,   400] loss: 0.273
-[10,   600] loss: 0.282
-[10,   800] loss: 0.277
-Finished Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.001
-    maximize: False
-    weight_decay: 5e-05
-)
-Training accuracy is 0.906130
-Epoch 1
-Valid Loss: 0.3005
-Valid Accuracy: 89.15%
-new model is great, with average loss 0.30051387429237364 better than before: 1000000000.0
-Epoch 2
-Valid Loss: 0.3005
-Valid Accuracy: 89.15%
-Epoch 3
-Valid Loss: 0.3005
-Valid Accuracy: 89.15%
-new model is great, with average loss 0.3005138739744822 better than before: 0.30051387429237364
-Epoch 4
-Valid Loss: 0.3005
-Valid Accuracy: 89.15%
-Epoch 5
-Valid Loss: 0.3005
-Valid Accuracy: 89.15%
-Test Loss: 0.3213
-Test Accuracy: 88.34%
-lr=0.001 & wd=5e-05 validation accuracy: 0.8915
-We will fit a model with lr=0.001, decay=0.0001
-Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.001
-    maximize: False
-    weight_decay: 0.0001
-).
-[1,   200] loss: 1.155
-[1,   400] loss: 0.705
-[1,   600] loss: 0.620
-[1,   800] loss: 0.578
-[2,   200] loss: 0.525
-[2,   400] loss: 0.487
-[2,   600] loss: 0.484
-[2,   800] loss: 0.456
-[3,   200] loss: 0.431
-[3,   400] loss: 0.424
-[3,   600] loss: 0.419
-[3,   800] loss: 0.403
-[4,   200] loss: 0.384
-[4,   400] loss: 0.402
-[4,   600] loss: 0.378
-[4,   800] loss: 0.361
-[5,   200] loss: 0.355
-[5,   400] loss: 0.352
-[5,   600] loss: 0.352
-[5,   800] loss: 0.365
-[6,   200] loss: 0.339
-[6,   400] loss: 0.335
-[6,   600] loss: 0.326
-[6,   800] loss: 0.340
-[7,   200] loss: 0.311
-[7,   400] loss: 0.327
-[7,   600] loss: 0.320
-[7,   800] loss: 0.328
-[8,   200] loss: 0.302
-[8,   400] loss: 0.314
-[8,   600] loss: 0.306
-[8,   800] loss: 0.299
-[9,   200] loss: 0.296
-[9,   400] loss: 0.298
-[9,   600] loss: 0.289
-[9,   800] loss: 0.292
-[10,   200] loss: 0.285
-[10,   400] loss: 0.286
-[10,   600] loss: 0.286
-[10,   800] loss: 0.278
-Finished Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.001
-    maximize: False
-    weight_decay: 0.0001
-)
-Training accuracy is 0.898444
-Epoch 1
-Valid Loss: 0.3052
-Valid Accuracy: 89.00%
-new model is great, with average loss 0.30517646527290343 better than before: 1000000000.0
-Epoch 2
-Valid Loss: 0.3052
-Valid Accuracy: 89.00%
-Epoch 3
-Valid Loss: 0.3052
-Valid Accuracy: 89.00%
-Epoch 4
-Valid Loss: 0.3052
-Valid Accuracy: 89.00%
-Epoch 5
-Valid Loss: 0.3052
-Valid Accuracy: 89.00%
-Test Loss: 0.3281
-Test Accuracy: 88.39%
-lr=0.001 & wd=0.0001 validation accuracy: 0.8900
-We will fit a model with lr=0.01, decay=1e-05
-Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.01
-    maximize: False
-    weight_decay: 1e-05
-).
-[1,   200] loss: 0.773
-[1,   400] loss: 0.495
-[1,   600] loss: 0.413
-[1,   800] loss: 0.409
-[2,   200] loss: 0.365
-[2,   400] loss: 0.368
-[2,   600] loss: 0.360
-[2,   800] loss: 0.357
-[3,   200] loss: 0.334
-[3,   400] loss: 0.336
-[3,   600] loss: 0.346
-[3,   800] loss: 0.331
-[4,   200] loss: 0.314
-[4,   400] loss: 0.321
-[4,   600] loss: 0.322
-[4,   800] loss: 0.329
-[5,   200] loss: 0.305
-[5,   400] loss: 0.321
-[5,   600] loss: 0.323
-[5,   800] loss: 0.321
-[6,   200] loss: 0.296
-[6,   400] loss: 0.311
-[6,   600] loss: 0.306
-[6,   800] loss: 0.303
-[7,   200] loss: 0.287
-[7,   400] loss: 0.292
-[7,   600] loss: 0.310
-[7,   800] loss: 0.311
-[8,   200] loss: 0.268
-[8,   400] loss: 0.293
-[8,   600] loss: 0.291
-[8,   800] loss: 0.305
-[9,   200] loss: 0.272
-[9,   400] loss: 0.284
-[9,   600] loss: 0.294
-[9,   800] loss: 0.301
-[10,   200] loss: 0.276
-[10,   400] loss: 0.299
-[10,   600] loss: 0.280
-[10,   800] loss: 0.300
-Finished Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.01
-    maximize: False
-    weight_decay: 1e-05
-)
-Training accuracy is 0.904130
-Epoch 1
-Valid Loss: 0.3178
-Valid Accuracy: 88.88%
-new model is great, with average loss 0.317809619029363 better than before: 1000000000.0
-Epoch 2
-Valid Loss: 0.3178
-Valid Accuracy: 88.88%
-new model is great, with average loss 0.31780961632728577 better than before: 0.317809619029363
-Epoch 3
-Valid Loss: 0.3178
-Valid Accuracy: 88.88%
-Epoch 4
-Valid Loss: 0.3178
-Valid Accuracy: 88.88%
-Epoch 5
-Valid Loss: 0.3178
-Valid Accuracy: 88.88%
-Test Loss: 0.3437
-Test Accuracy: 88.16%
-lr=0.01 & wd=1e-05 validation accuracy: 0.8888
-We will fit a model with lr=0.01, decay=5e-05
-Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.01
-    maximize: False
-    weight_decay: 5e-05
-).
-[1,   200] loss: 0.795
-[1,   400] loss: 0.505
-[1,   600] loss: 0.457
-[1,   800] loss: 0.422
-[2,   200] loss: 0.379
-[2,   400] loss: 0.372
-[2,   600] loss: 0.382
-[2,   800] loss: 0.383
-[3,   200] loss: 0.342
-[3,   400] loss: 0.350
-[3,   600] loss: 0.342
-[3,   800] loss: 0.343
-[4,   200] loss: 0.326
-[4,   400] loss: 0.339
-[4,   600] loss: 0.344
-[4,   800] loss: 0.344
-[5,   200] loss: 0.317
-[5,   400] loss: 0.327
-[5,   600] loss: 0.326
-[5,   800] loss: 0.322
-[6,   200] loss: 0.303
-[6,   400] loss: 0.321
-[6,   600] loss: 0.313
-[6,   800] loss: 0.310
-[7,   200] loss: 0.299
-[7,   400] loss: 0.313
-[7,   600] loss: 0.319
-[7,   800] loss: 0.305
-[8,   200] loss: 0.307
-[8,   400] loss: 0.301
-[8,   600] loss: 0.301
-[8,   800] loss: 0.316
-[9,   200] loss: 0.297
-[9,   400] loss: 0.292
-[9,   600] loss: 0.294
-[9,   800] loss: 0.301
-[10,   200] loss: 0.285
-[10,   400] loss: 0.303
-[10,   600] loss: 0.305
-[10,   800] loss: 0.291
-Finished Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.01
-    maximize: False
-    weight_decay: 5e-05
-)
-Training accuracy is 0.888315
-Epoch 1
-Valid Loss: 0.3535
-Valid Accuracy: 87.35%
-new model is great, with average loss 0.35354597330093385 better than before: 1000000000.0
-Epoch 2
-Valid Loss: 0.3535
-Valid Accuracy: 87.35%
-Epoch 3
-Valid Loss: 0.3535
-Valid Accuracy: 87.35%
-Epoch 4
-Valid Loss: 0.3535
-Valid Accuracy: 87.35%
-Epoch 5
-Valid Loss: 0.3535
-Valid Accuracy: 87.35%
-Test Loss: 0.3799
-Test Accuracy: 86.11%
-lr=0.01 & wd=5e-05 validation accuracy: 0.8735
-We will fit a model with lr=0.01, decay=0.0001
-Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.01
-    maximize: False
-    weight_decay: 0.0001
-).
-[1,   200] loss: 0.838
-[1,   400] loss: 0.525
-[1,   600] loss: 0.467
-[1,   800] loss: 0.433
-[2,   200] loss: 0.405
-[2,   400] loss: 0.391
-[2,   600] loss: 0.376
-[2,   800] loss: 0.375
-[3,   200] loss: 0.359
-[3,   400] loss: 0.348
-[3,   600] loss: 0.353
-[3,   800] loss: 0.343
-[4,   200] loss: 0.336
-[4,   400] loss: 0.355
-[4,   600] loss: 0.333
-[4,   800] loss: 0.340
-[5,   200] loss: 0.312
-[5,   400] loss: 0.330
-[5,   600] loss: 0.331
-[5,   800] loss: 0.338
-[6,   200] loss: 0.313
-[6,   400] loss: 0.327
-[6,   600] loss: 0.330
-[6,   800] loss: 0.337
-[7,   200] loss: 0.317
-[7,   400] loss: 0.313
-[7,   600] loss: 0.314
-[7,   800] loss: 0.324
-[8,   200] loss: 0.302
-[8,   400] loss: 0.322
-[8,   600] loss: 0.320
-[8,   800] loss: 0.321
-[9,   200] loss: 0.302
-[9,   400] loss: 0.311
-[9,   600] loss: 0.311
-[9,   800] loss: 0.325
-[10,   200] loss: 0.295
-[10,   400] loss: 0.313
-[10,   600] loss: 0.317
-[10,   800] loss: 0.311
-Finished Training with optimiser Adam (
-Parameter Group 0
-    amsgrad: False
-    betas: (0.9, 0.999)
-    capturable: False
-    differentiable: False
-    eps: 1e-08
-    foreach: None
-    fused: None
-    lr: 0.01
-    maximize: False
-    weight_decay: 0.0001
-)
-Training accuracy is 0.886111
-Epoch 1
-Valid Loss: 0.3495
-Valid Accuracy: 87.45%
-new model is great, with average loss 0.3494587035973867 better than before: 1000000000.0
-Epoch 2
-Valid Loss: 0.3495
-Valid Accuracy: 87.45%
-new model is great, with average loss 0.3494587016105652 better than before: 0.3494587035973867
-Epoch 3
-Valid Loss: 0.3495
-Valid Accuracy: 87.45%
-new model is great, with average loss 0.34945870137214663 better than before: 0.3494587016105652
-Epoch 4
-Valid Loss: 0.3495
-Valid Accuracy: 87.45%
-Epoch 5
-Valid Loss: 0.3495
-Valid Accuracy: 87.45%
-Test Loss: 0.3606
-Test Accuracy: 86.91%
-lr=0.01 & wd=0.0001 validation accuracy: 0.8745
-   activation   optimizer  validation_accuracy  learning_rate  weight_decay
-0        ReLU         SGD             0.819167            NaN           NaN
-1   LeakyReLU         SGD             0.828000            NaN           NaN
-2        GELU         SGD             0.801333            NaN           NaN
-3        ReLU     SGD_0.9             0.812500            NaN           NaN
-4        ReLU     SGD_0.7             0.858500            NaN           NaN
-5        ReLU  Adam_0.995             0.893667            NaN           NaN
-6        ReLU     Adam_L2             0.811833            NaN           NaN
-7        ReLU       AdamW             0.892500            NaN           NaN
-8        ReLU        Adam             0.887167          0.001       0.00001
-9        ReLU        Adam             0.891500          0.001       0.00005
-10       ReLU        Adam             0.890000          0.001       0.00010
-11       ReLU        Adam             0.888833          0.010       0.00001
-12       ReLU        Adam             0.873500          0.010       0.00005
-13       ReLU        Adam             0.874500          0.010       0.00010
+Valid Loss: 0.2824
+Valid Accuracy: 89.83%
+Test Loss: 0.3149
+Test Accuracy: 88.53%
+   activation   optimizer  validation_accuracy
+0        ReLU         SGD             0.820667
+1   LeakyReLU         SGD             0.823000
+2        GELU         SGD             0.807833
+3  Leaky ReLU     SGD_0.9             0.811167
+4  Leaky ReLU     SGD_0.7             0.857333
+5  Leaky ReLU  Adam_0.995             0.900500
+6  Leaky ReLU     Adam_L2             0.814167
+7  Leaky ReLU       AdamW             0.898333
