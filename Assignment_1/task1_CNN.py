@@ -236,24 +236,14 @@ for name, activation in activations.items():
         "validation_accuracy": accs['valid']
     })
 
-
+print(pd.DataFrame(results))
 # relu does the best, so we will use it for our optimiser testing
-best_activation = F.relu
+best_activation = F.leaky_relu
 
 optimizer_factories = {
-    "SGD_0.9": lambda params: optim.SGD(
-        params, lr=0.001, momentum=0.9
-    ),
-    "SGD_0.7": lambda params: optim.SGD(
-        params, lr=0.005, momentum=0.7
-    ),
-    "Adam_0.995": lambda params: optim.Adam(
-        params, lr=0.003, betas=(0.9, 0.995)
-    ),
-    "Adam_L2": lambda params: optim.Adam(
-        params, lr=0.0001, weight_decay=1e-5
-    ),
-    "AdamW": lambda params: optim.AdamW(params),
+    "SGD": lambda params: optim.SGD(),
+    "Adam": lambda params: optim.Adam(),
+    "AdamW": lambda params: optim.AdamW(),
 }
 
 for name, make_optimizer in optimizer_factories.items():
@@ -264,11 +254,12 @@ for name, make_optimizer in optimizer_factories.items():
     accs = train_validate_test(model, optimizer)
 
     results.append({
-        "activation": "ReLU",
+        "activation": "Leaky ReLU",
         "optimizer": name,
         "validation_accuracy": accs["valid"],
     })
 
+"""
 best_optimiser = optim.Adam
 
 # Adam with L2 regularisation does best, so we will use it further
@@ -294,5 +285,5 @@ for lr in [0.001, 0.01]:
             "learning_rate": lr,
             "weight_decay": weight_decay
         })
-
+"""
 print(pd.DataFrame(results))
