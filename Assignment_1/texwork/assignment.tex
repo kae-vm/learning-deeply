@@ -68,29 +68,33 @@ We tested different activation functions:
 \begin{tblr}{
 	colspec = {X[c,m]X[c,m]X[c,m]},
 	hlines, vlines,
+	column{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
 }
 Activation & Optimiser & {Validation\\Accuracy} \\
-ReLU & SGD & \\
-Leaky ReLU & SGD & \\
-GELU & SGD & \\
+ReLU & SGD & 81.92\\
+Leaky ReLU & SGD & 82.80\\
+GELU & SGD & 80.13\\
 \end{tblr}
 \caption{Performance on validation dataset by different activation functions}
 \label{tab:activations}
 \end{table}
 
-As we can see in the table, ReLU performed best, so we will use it to fit the rest.
+As we can see in the table, Leaky ReLU performed best, so we will use it to fit the rest.
 
 \begin{table}[hbt]
 \begin{tblr}{
 	colspec = {X[c,m]X[3,c,m]X[c,m]},
 	hlines, vlines,
+	column{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
 }
 Activation & Optimiser & {Validation\\Accuracy} \\
-ReLU & SGD(lr\(=0.001\), momentum\(=0.9\)) & \\
-ReLU & SGD(lr\(=0.005\), momentum\(=0.7\)) & \\
-ReLU & Adam(lr\(=0.003\), betas\(=(0.9, 0.995)\)) & \\
-ReLU & Adam(lr\(=0.0001\), weight\_decay\(=10^{-5}\)) & \\
-ReLU & AdamW & \\
+Leaky ReLU & SGD(lr\(=0.001\), momentum\(=0.9\)) & 81.12\\
+Leaky ReLU & SGD(lr\(=0.005\), momentum\(=0.7\)) & 85.73\\
+Leaky ReLU & Adam(lr\(=0.003\), betas\(=(0.9, 0.995)\)) & 90.05\\
+Leaky ReLU & Adam(lr\(=0.0001\), weight\_decay\(=10^{-5}\)) & 81.42\\
+Leaky ReLU & AdamW & 89.83\\
 \end{tblr}
 \caption{Performance on validation dataset by different optimisers}
 \label{tab:optimisers}
