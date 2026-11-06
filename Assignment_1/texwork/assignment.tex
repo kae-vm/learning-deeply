@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
 \usepackage{CrimsonPro, eulervm}
 \usepackage{amsmath, amssymb}
 \usepackage[margins=3cm]{geometry}
@@ -14,9 +14,9 @@
 \section{Learning the Basics of PyTorch}
 \subsection{MLP}
 
-Started with a baseline model with hidden\_size = 256, dropout = 0.2, optimizer = SGD, and learning\_rate = 0.01. Used a batch of 64 and 10 epochs. Here, we varied the activation layers. Tried out ReLU, LeakyReLU, and GELU. Using a 90/10 split for training and validation, LeakyReLU resulted in the highest validation accuracy \= 0.9018. 
+Started with a baseline model with hidden\_size = 256, dropout = 0.2, optimiser = SGD, and learning\_rate = 0.01. Used a batch of 64 and 10 epochs. Here, we varied the activation layers. Tried out ReLU, LeakyReLU, and GELU. Using a 90/10 split for training and validation, LeakyReLU resulted in the highest validation accuracy \= 0.9018. 
 
-Will continue varying the optimizers, using LeakyReLU as the activation function. Tried out SGD, Adam, and AdamW. Again using a 90/10 split for training and validation, AdamW resulted in the highest validation accuracy \= 0.8650.
+Will continue varying the optimisers, using LeakyReLU as the activation function. Tried out SGD, Adam, and AdamW. Again using a 90/10 split for training and validation, AdamW resulted in the highest validation accuracy \= 0.8650.
 
 Tried out learning rate [0.001, 0.01, 0.1]. Learning rate \= 0.01 resulted in the highest validation accuracy of 0.9025. 
 
@@ -62,40 +62,67 @@ We tested different activation functions:
 		.\] 
 \end{description}
 
-		We performed this testing with 10 epochs for training, and 5 for validation, which saved the state of the best model to a directory. The test performance of that model was then calculated. The performance of the different activation functions is given in Table \ref{tab:activations}.
+We performed this testing with 10 epochs for training, which was validated through the separated dataset. The test performance of that model was then calculated. The performance of the different activation functions is given in Table \ref{tab:activations}. As we can see in the table, GELU performed best, so we will use it to fit the rest.
 
 \begin{table}[hbt]
 \begin{tblr}{
 	colspec = {X[c,m]X[c,m]X[c,m]},
 	hlines, vlines,
+	cell{2-Z}{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
 }
-Activation & Optimiser & {Validation\\Accuracy} \\
-ReLU & SGD & \\
-Leaky ReLU & SGD & \\
-GELU & SGD & \\
+Activation & Optimiser & Validation Accuracy \\
+ReLU & SGD & 81.25 \\
+Leaky ReLU & SGD & 81.12 \\
+GELU & SGD & 81.75 \\
 \end{tblr}
 \caption{Performance on validation dataset by different activation functions}
 \label{tab:activations}
 \end{table}
 
-As we can see in the table, ReLU performed best, so we will use it to fit the rest.
 
 \begin{table}[hbt]
 \begin{tblr}{
-	colspec = {X[c,m]X[3,c,m]X[c,m]},
+	colspec = {X[c,m]X[c,m]X[c,m]},
 	hlines, vlines,
+	cell{2-Z}{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
 }
-Activation & Optimiser & {Validation\\Accuracy} \\
-ReLU & SGD(lr\(=0.001\), momentum\(=0.9\)) & \\
-ReLU & SGD(lr\(=0.005\), momentum\(=0.7\)) & \\
-ReLU & Adam(lr\(=0.003\), betas\(=(0.9, 0.995)\)) & \\
-ReLU & Adam(lr\(=0.0001\), weight\_decay\(=10^{-5}\)) & \\
-ReLU & AdamW & \\
+Activation & Optimiser & Validation Accuracy \\
+GELU & SGD & 81.75 \\
+GELU & Adam & 90.13 \\
+GELU & AdamW & 90.00 \\
 \end{tblr}
 \caption{Performance on validation dataset by different optimisers}
 \label{tab:optimisers}
 \end{table}
 
-From Table \ref{tab:optimisers}, we can see Adam with L2-regularisation does best, so we will use that.
+From Table \ref{tab:optimisers}, we can see Adam does best, so we will use that in our further analysis.
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+	cell{2-Z}{3-Z} = {mode=math},
+}
+Activation & Optimiser & Validation Accuracy & Learning Rate & Weight Decay & Betas \\
+GELU & Adam & 0.9035 & 10^{-3} & 10^{-5} & (0.9, 0.999) \\
+GELU & Adam & 0.9002 & 10^{-3} & 10^{-5} & (0.95, 0.995) \\
+GELU & Adam & 0.8960 & 10^{-3} & 10^{-5} & (0.99, 0.99) \\
+GELU & Adam & 0.9025 & 10^{-3} & 10^{-4} & (0.9, 0.999) \\
+GELU & Adam & 0.8948 & 10^{-3} & 10^{-4} & (0.95, 0.995) \\
+GELU & Adam & 0.8888 & 10^{-3} & 10^{-4} & (0.99, 0.99) \\
+GELU & Adam & 0.8837 & 10^{-2} & 10^{-5} & (0.9, 0.999) \\
+GELU & Adam & 0.8787 & 10^{-2} & 10^{-5} & (0.95, 0.995) \\
+GELU & Adam & 0.8878 & 10^{-2} & 10^{-5} & (0.99, 0.99) \\
+GELU & Adam & 0.8800 & 10^{-2} & 10^{-4} & (0.9, 0.999) \\
+GELU & Adam & 0.8623 & 10^{-2} & 10^{-4} & (0.95, 0.995) \\
+GELU & Adam & 0.8803 & 10^{-2} & 10^{-4} & (0.99, 0.99) \\
+\end{tblr}
+\caption{Performance on validation dataset by different parameters}
+\label{tab:parameters}
+\end{table}
+
+Now, we test different parameter combinations of the optimiser we have chosen, and the results are present in \ref{tab:parameters}. We can see that the best performing model, as per our combined analysis, is with the GELU activation function, Adam optimiser, learning rate\(=10^{-3}\), weight decay\(=10^{-5}\), and betas\(=(0.9, 0.999)\). We see a consistently strong performance with these values of learning rate and betas, even when weight decay is varied, even though that does decrease it marginally.
 
 \end{document}
