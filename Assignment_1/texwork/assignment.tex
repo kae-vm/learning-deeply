@@ -12,7 +12,8 @@
 \maketitle	
 
 \section{Learning the Basics of PyTorch}
-\subsection{MLP}
+\subsection{Multi-layer Perceptron}
+In this first part, we started by setting a seed for reproducibility, and then importing the Fashion-MNIST dataset from \texttt{torchvision.datasets}.
 
 Started with a baseline model with hidden\_size = 256, dropout = 0.2, optimiser = SGD, and learning\_rate = 0.01. Used a batch of 64 and 10 epochs. Here, we varied the activation layers. Tried out ReLU, LeakyReLU, and GELU. Using a 90/10 split for training and validation, LeakyReLU resulted in the highest validation accuracy \= 0.9018. 
 
@@ -25,7 +26,7 @@ Tried out hidden sizes of 128, 256, and 512. Hidden size of 128 was the best, wi
 Tried out dropout values of 0.0, 0.2, and 0.5. Dropout \= 0.0 resulted in the highest validation accuracy of 0.8788.
 
 \subsection{Convolutional Neural Networks}
-We started by setting seeds for reproducibility, and then importing the MNIST dataset from the natively provided \texttt{torchvision.datasets}. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
+Like in the previous section, a seed was set for reproducibility, and the dataset was imported. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
 
 \begin{figure}[htb]
 \centering	
@@ -155,7 +156,7 @@ SGD & 0.4495 \\
 \label{tab:cifar_2}
 \end{table}
 
-This could be due to the fact that in essence, MNIST is a much simpler task, where the digits are centred, and single-channel, and there is possibly a high level of separation between classes. The images of CIFAR-10 are not only RGB, but more complicated, and not as well separated. SGD performs much worse than Adam, which could be due to a weakly-trained learning rate on CIFAR, as opposed to Adam, which generalises better and isn't as dependent on the learning rate, as it uses the moments to adapt. While this difference is large, there is not much between Adam and AdamW, which may be due to both not overfitting, hence the decay is not a huge advantage.
+This could be due to the fact that in essence, Fashion-MNIST is a much simpler task, where the items of clothing are centred, and single-channel, and there is possibly a high level of separation between classes. The images of CIFAR-10 are not only RGB, but more complicated, and not as well separated. SGD performs much worse than Adam, which could be due to a weakly-trained learning rate on CIFAR, as opposed to Adam, which generalises better and isn't as dependent on the learning rate, as it uses the moments to adapt. While this difference is large, there is not much between Adam and AdamW, which may be due to both not overfitting, hence the decay is not a huge advantage.
 
 Within the Adam optimiser, lowering the decay enables it to adapt faster, which may make it perform better on a complex dataset. I was not able to vary the architecture as much as I would've liked to, but adding more convolutional kernels may help the models to generalise better to the more complicated CIFAR-10 dataset. 
 
