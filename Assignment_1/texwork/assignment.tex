@@ -25,7 +25,7 @@ Tried out hidden sizes of 128, 256, and 512. Hidden size of 128 was the best, wi
 Tried out dropout values of 0.0, 0.2, and 0.5. Dropout \= 0.0 resulted in the highest validation accuracy of 0.8788.
 
 \subsection{Convolutional Neural Networks}
-We started by setting seeds for reproducibility, and then importing the MNIST dataset from \texttt{torchvision.datasets}. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
+We started by setting seeds for reproducibility, and then importing the MNIST dataset from the natively provided \texttt{torchvision.datasets}. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
 
 \begin{figure}[htb]
 \centering	
@@ -62,7 +62,7 @@ We tested different activation functions:
 		.\] 
 \end{description}
 
-We performed this testing with 10 epochs for training, which was validated through the separated dataset. The test performance of that model was then calculated. The performance of the different activation functions is given in Table \ref{tab:activations}. As we can see in the table, GELU performed best, so we will use it to fit the rest.
+\noindent We performed this testing with 10 epochs for training, which was validated through the separated dataset. The test performance of that model was then calculated. The performance of the different activation functions is given in Table \ref{tab:activations}. As we can see in the table, GELU performed best, so we will use it to fit the rest.
 
 \begin{table}[hbt]
 \begin{tblr}{
@@ -97,8 +97,6 @@ GELU & AdamW & 90.00 \\
 \label{tab:optimisers}
 \end{table}
 
-From Table \ref{tab:optimisers}, we can see Adam does best, so we will use that in our further analysis.
-
 \begin{table}[hbt]
 \begin{tblr}{
 	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]},
@@ -123,6 +121,42 @@ GELU & Adam & 0.8803 & 10^{-2} & 10^{-4} & (0.99, 0.99) \\
 \label{tab:parameters}
 \end{table}
 
-Now, we test different parameter combinations of the optimiser we have chosen, and the results are present in \ref{tab:parameters}. We can see that the best performing model, as per our combined analysis, is with the GELU activation function, Adam optimiser, learning rate\(=10^{-3}\), weight decay\(=10^{-5}\), and betas\(=(0.9, 0.999)\). We see a consistently strong performance with these values of learning rate and betas, even when weight decay is varied, even though that does decrease it marginally.
+From Table \ref{tab:optimisers}, we can see Adam does best, so we will use that in our further analysis. Now, we test different parameter combinations of the optimiser we have chosen, and the results are present in \ref{tab:parameters}. We can see that the best performing model, as per our combined analysis, is with the GELU activation function, Adam optimiser, learning rate\(=10^{-3}\), weight decay\(=10^{-5}\), and betas\(=(0.9, 0.999)\). We see a consistently strong performance with these values of learning rate and betas, even when weight decay is varied, even though that does decrease it marginally.
+
+Further, after this, we ran the models on the CIFAR-10 dataset, adjusting them only for number of channels. Performance was not as strong, as demonstrated in Table \ref{tab:cifar_1}. After running the three best models from Table \ref{tab:parameters}, we tested different optimisers as well, to see more examples, as shown in Table \ref{tab:cifar_2}. None of these performed particularly well.
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+	row{2-Z} = {mode=math}
+}
+Learning Rate & Weight Decay & Betas & Test Accuracy \\
+10^{-3} & 10^{-5} & (0.9, 0.999) & 0.6216 \\
+10^{-3} & 10^{-4} & (0.9, 0.999) & 0.6172 \\
+10^{-3} & 10^{-5} & (0.95, 0.995) & 0.6407
+\end{tblr}
+\caption{CIFAR-10 performance on the best three parameter combinations of \texttt{optim.Adam}}
+\label{tab:cifar_1}
+\end{table}
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]},
+	hlines, vlines,
+	cell{2-Z}{2} = {mode=math}
+}
+Name & Test Accuracy \\
+Adam & 0.6288 \\
+AdamW & 0.6289 \\
+SGD & 0.4495 \\
+\end{tblr}
+\caption{CIFAR-10 performance on different optimisers}
+\label{tab:cifar_2}
+\end{table}
+
+This could be due to the fact that in essence, MNIST is a much simpler task, where the digits are centred, and single-channel, and there is possibly a high level of separation between classes. The images of CIFAR-10 are not only RGB, but more complicated, and not as well separated. SGD performs much worse than Adam, which could be due to a weakly-trained learning rate on CIFAR, as opposed to Adam, which generalises better and isn't as dependent on the learning rate, as it uses the moments to adapt. While this difference is large, there is not much between Adam and AdamW, which may be due to both not overfitting, hence the decay is not a huge advantage.
+
+Within the Adam optimiser, lowering the decay enables it to adapt faster, which may make it perform better on a complex dataset. I was not able to vary the architecture as much as I would've liked to, but adding more convolutional kernels may help the models to generalise better to the more complicated CIFAR-10 dataset. 
 
 \end{document}

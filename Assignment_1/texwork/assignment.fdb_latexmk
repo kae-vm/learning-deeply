@@ -1,5 +1,5 @@
 # Fdb version 4
-["lualatex"] 1793953206.75793 "assignment.tex" "assignment.pdf" "assignment" 1793953212.67539 2
+["lualatex"] 1793965077.00444 "assignment.tex" "assignment.pdf" "assignment" 1793965083.13341 2
   "C:/Users/keval/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1789642213 251401 568035f1cc807650576a2740e3cc4561 ""
   "C:/Users/keval/AppData/Local/MiKTeX/luatex-cache/generic/fonts/otl/crimsonpro-bold.luc" 1774254148 298622 c4112c5ae1312a9d4495f16fa6bf8622 ""
   "C:/Users/keval/AppData/Local/MiKTeX/luatex-cache/generic/fonts/otl/crimsonpro-bolditalic.luc" 1774254149 305841 241d1651c93fc4d679b1a0b303e71e75 ""
@@ -155,8 +155,8 @@
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/luaotfload-tounicode.lua" 1740607740 7529 21fe79d2526f3c3d789a9cc0366347ab ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/luaotfload-unicode.lua" 1740607740 7918 4272855a25780b80472f3b58edd95e33 ""
   "C:/Users/keval/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/luaotfload.lua" 1740607740 13566 16df94dd2de231b2bca0aaa0190941fe ""
-  "assignment.aux" 1793953211 1176 9d17122e2b0d47504bf7ccab62069a8e "lualatex"
-  "assignment.tex" 1793953136 5456 0bb2f7645539fec91cf5f94812bfb930 ""
+  "assignment.aux" 1793965082 1598 d263e100097f3e0a5b535a694632085f "lualatex"
+  "assignment.tex" 1793965075 7608 4540c7ede1d829018f00678e78d48af2 ""
   "c:/users/keval/appdata/local/programs/miktex/fonts/opentype/public/lm/lmmono10-regular.otf" 1256929440 64684 c6f5a48921f83c1a51d9384f785ddd5a ""
   "pics/cnn.jpg" 1793871146 122813 ccb2b9a85366ce3bb4fee9a86add2534 ""
   (generated)
