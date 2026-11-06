@@ -13,33 +13,11 @@
 
 \section{Learning the Basics of PyTorch}
 \subsection{Multi-layer Perceptron}
-In this first part, we started by setting a seed for reproducibility, and then importing the Fashion-MNIST dataset from \texttt{torchvision.datasets}.
+In this first part, we started by setting a seed for reproducibility, and then importing the Fashion-MNIST dataset from \texttt{torchvision.datasets}. The training and test datasets were imported separately, and the training dataset was split into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
 
-Started with a baseline model with hidden\_size = 256, dropout = 0.2, optimiser = SGD, and learning\_rate = 0.01. Used a batch of 64 and 10 epochs. Here, we varied the activation layers. Tried out ReLU, LeakyReLU, and GELU. Using a 90/10 split for training and validation, LeakyReLU resulted in the highest validation accuracy \= 0.9018. 
+To start off the systematic experimentation, we used a baseline model with the following parameters: hidden\_size = 256, dropout = 0.2, optimiser = SGD, and learning\_rate = 0.01. For validation, 10 epochs were used to get a good feel for the accuracy without overfitting. The experimentation is done sequentially with a small amount of values for each hyperparameter, more as a show of proof than to find the all-time highest possible accuracy. 
 
-Will continue varying the optimisers, using LeakyReLU as the activation function. Tried out SGD, Adam, and AdamW. Again using a 90/10 split for training and validation, AdamW resulted in the highest validation accuracy \= 0.8650.
-
-Tried out learning rate [0.001, 0.01, 0.1]. Learning rate \= 0.01 resulted in the highest validation accuracy of 0.9025. 
-
-Tried out hidden sizes of 128, 256, and 512. Hidden size of 128 was the best, with a validation accuracy of 0.8722.
-
-Tried out dropout values of 0.0, 0.2, and 0.5. Dropout \= 0.0 resulted in the highest validation accuracy of 0.8788.
-
-\subsection{Convolutional Neural Networks}
-Like in the previous section, a seed was set for reproducibility, and the dataset was imported. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
-
-\begin{figure}[htb]
-\centering	
-\includegraphics[width=0.95\textwidth]{pics/cnn.jpg}
-\caption{Sample Convolutional Neural Network}
-\label{fig:cnn}
-\end{figure}
-
-We set up a basic convolutional neural network, similar to the one depicted in Figure \ref{fig:cnn}, with two convolutional layers and max pooling between, with a customisable activation function.
-
-Defining functions for training, validating, and testing, we then moved to the systematic testing of parameters.
-
-We tested different activation functions:
+In the first round, only the acitivation function was varied, while keeping the other parameters fixed. ReLU, LeakyReLU, and GeLU were tested:
 \begin{description}
 	\item[ReLU]
 		\[
@@ -62,6 +40,96 @@ We tested different activation functions:
 		f(x) = x \cdot\Phi(x)
 		.\] 
 \end{description}
+
+Leaky ReLU resulted in the highest validation accuracy of 0.8857. See table below for the results of the different activation functions.
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+	cell{2-Z}{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
+}
+Activation & Optimiser & Validation Accuracy \\
+ReLU & SGD & 88.32 \\
+Leaky ReLU & SGD & 88.57 \\
+GELU & SGD & 87.73 \\
+\end{tblr}
+\caption{Performance on validation dataset by different activation functions}
+\label{tab:mlpactivations}
+\end{table}
+
+Next, we will continue varying the optimisers, using ReLU as the activation function. All other hyperparameters were kept fixed, as SGD, Adam, and AdamW were tested. Adam resulted in the highest validation accuracy \= 0.8568. See table below for the results of the different optimisers.
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+	cell{2-Z}{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
+}
+Activation & Optimiser & Validation Accuracy \\
+Leaky ReLU & SGD & 84.77 \\
+Leaky ReLU & Adam & 86.58 \\
+Leaky ReLU & AdamW & 83.08 \\
+\end{tblr}
+\caption{Performance on validation dataset by different optimisers}
+\label{tab:mlpoptimisers}
+\end{table}
+
+Continuing, we varied the learning rate. The following values were used for the learning rate [0.001, 0.01, 0.1]. Learning rate \= 0.001 resulted in the highest validation accuracy of 0.8872. 
+
+The size of the hidden layer was also varied. The following hidden sizes were tested: 128, 256, and 512. From the results, the hidden size of 256 was the best, with a validation accuracy of 0.8560.
+
+Finally, we tried out dropout values of 0.0, 0.2, and 0.5. Dropout \= 0.0 resulted in the highest validation accuracy of 0.8925. The top 3 performing models were then retrained on the train set, and tested on the test set. The results are shown in the table below. The best performing model was the one with Leaky ReLU, Adam, learning rate \= 0.001, hidden size \= 256, and dropout \= 0.0, with a test accuracy of 0.8881.
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+	cell{2-Z}{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
+}
+Activation & Hidden Size & Dropout & Optimiser & Learning Rate & Test Accuracy \\
+Leaky ReLU & 256 & 0.0 & Adam & 0.001 & 88.81 \\
+Leaky ReLU & 256 & 0.2 & Adam & 0.001 & 88.29 \\
+Leaky ReLU & 256 & 0.2 & SGD & 0.01 & 83.24 \\
+\end{tblr}
+\caption{Performance on Fashion-MNIST test set by different configurations}
+\label{tab:mlptest}
+\end{table}
+
+These top 3 models were then trained and tested on the CIFAR-10 dataset, adjusting them only for number of channels. Performance was not as strong, as demonstrated in Table \ref{tab:mlpcifar}. The best performing model was the one with Leaky ReLU, Adam, learning rate \= 0.001, hidden size \= 256, and dropout \= 0.0, with a test accuracy of 0.6216.
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+	cell{2-Z}{Z} = {appto=\%},
+	row{1} = {font=\bfseries}
+}
+Activation & Hidden Size & Dropout & Optimiser & Learning Rate & Test Accuracy \\
+Leaky ReLU & 256 & 0.0 & Adam & 0.001 & 48.42 \\
+Leaky ReLU & 256 & 0.2 & Adam & 0.001 & 43.54 \\
+Leaky ReLU & 256 & 0.2 & SGD & 0.01 & 44.02 \\
+\end{tblr}
+\caption{Performance on CIFAR-10 test set by different configurations}
+\label{tab:mlpcifar}
+\end{table}
+
+TODO=add in more explanation of why the performance is worse on CIFAR-10, and what could be done to improve it.
+
+\subsection{Convolutional Neural Networks}
+Like in the previous section, a seed was set for reproducibility, and the dataset was imported. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
+
+\begin{figure}[htb]
+\centering	
+\includegraphics[width=0.95\textwidth]{pics/cnn.jpg}
+\caption{Sample Convolutional Neural Network}
+\label{fig:cnn}
+\end{figure}
+
+We set up a basic convolutional neural network, similar to the one depicted in Figure \ref{fig:cnn}, with two convolutional layers and max pooling between, with a customisable activation function.
+
+Defining functions for training, validating, and testing, we then moved to the systematic testing of parameters.
 
 \noindent We performed this testing with 10 epochs for training, which was validated through the separated dataset. The test performance of that model was then calculated. The performance of the different activation functions is given in Table \ref{tab:activations}. As we can see in the table, GELU performed best, so we will use it to fit the rest.
 
