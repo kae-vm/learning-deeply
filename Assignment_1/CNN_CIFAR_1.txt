@@ -1,0 +1,175 @@
+Files already downloaded and verified
+Files already downloaded and verified
+Training with optimiser Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 1e-05
+).
+[1,   200] loss: 1.995
+[1,   400] loss: 1.710
+[1,   600] loss: 1.606
+[2,   200] loss: 1.488
+[2,   400] loss: 1.452
+[2,   600] loss: 1.423
+[3,   200] loss: 1.356
+[3,   400] loss: 1.321
+[3,   600] loss: 1.314
+[4,   200] loss: 1.225
+[4,   400] loss: 1.224
+[4,   600] loss: 1.225
+[5,   200] loss: 1.117
+[5,   400] loss: 1.156
+[5,   600] loss: 1.133
+[6,   200] loss: 1.064
+[6,   400] loss: 1.065
+[6,   600] loss: 1.051
+[7,   200] loss: 1.000
+[7,   400] loss: 0.994
+[7,   600] loss: 1.000
+[8,   200] loss: 0.925
+[8,   400] loss: 0.936
+[8,   600] loss: 0.942
+[9,   200] loss: 0.866
+[9,   400] loss: 0.874
+[9,   600] loss: 0.890
+[10,   200] loss: 0.823
+[10,   400] loss: 0.838
+[10,   600] loss: 0.833
+Finished Training with optimiser Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 1e-05
+)
+Training accuracy is 0.745340
+Test Loss: 1.0860
+Test Accuracy: 62.88%
+Training with optimiser AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0.01
+).
+[1,   200] loss: 1.995
+[1,   400] loss: 1.710
+[1,   600] loss: 1.607
+[2,   200] loss: 1.489
+[2,   400] loss: 1.454
+[2,   600] loss: 1.425
+[3,   200] loss: 1.359
+[3,   400] loss: 1.324
+[3,   600] loss: 1.317
+[4,   200] loss: 1.229
+[4,   400] loss: 1.229
+[4,   600] loss: 1.229
+[5,   200] loss: 1.123
+[5,   400] loss: 1.162
+[5,   600] loss: 1.139
+[6,   200] loss: 1.071
+[6,   400] loss: 1.071
+[6,   600] loss: 1.058
+[7,   200] loss: 1.008
+[7,   400] loss: 1.003
+[7,   600] loss: 1.007
+[8,   200] loss: 0.935
+[8,   400] loss: 0.945
+[8,   600] loss: 0.950
+[9,   200] loss: 0.877
+[9,   400] loss: 0.884
+[9,   600] loss: 0.900
+[10,   200] loss: 0.834
+[10,   400] loss: 0.849
+[10,   600] loss: 0.844
+Finished Training with optimiser AdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    capturable: False
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.001
+    maximize: False
+    weight_decay: 0.01
+)
+Training accuracy is 0.739960
+Test Loss: 1.0829
+Test Accuracy: 62.89%
+Training with optimiser SGD (
+Parameter Group 0
+    dampening: 0
+    differentiable: False
+    foreach: None
+    lr: 0.001
+    maximize: False
+    momentum: 0.9
+    nesterov: False
+    weight_decay: 0
+).
+[1,   200] loss: 2.303
+[1,   400] loss: 2.303
+[1,   600] loss: 2.303
+[2,   200] loss: 2.302
+[2,   400] loss: 2.302
+[2,   600] loss: 2.301
+[3,   200] loss: 2.301
+[3,   400] loss: 2.300
+[3,   600] loss: 2.298
+[4,   200] loss: 2.289
+[4,   400] loss: 2.280
+[4,   600] loss: 2.256
+[5,   200] loss: 2.180
+[5,   400] loss: 2.158
+[5,   600] loss: 2.120
+[6,   200] loss: 2.040
+[6,   400] loss: 1.991
+[6,   600] loss: 1.965
+[7,   200] loss: 1.916
+[7,   400] loss: 1.878
+[7,   600] loss: 1.838
+[8,   200] loss: 1.763
+[8,   400] loss: 1.740
+[8,   600] loss: 1.701
+[9,   200] loss: 1.644
+[9,   400] loss: 1.608
+[9,   600] loss: 1.597
+[10,   200] loss: 1.552
+[10,   400] loss: 1.542
+[10,   600] loss: 1.530
+Finished Training with optimiser SGD (
+Parameter Group 0
+    dampening: 0
+    differentiable: False
+    foreach: None
+    lr: 0.001
+    maximize: False
+    momentum: 0.9
+    nesterov: False
+    weight_decay: 0
+)
+Training accuracy is 0.447920
+Test Loss: 1.5317
+Test Accuracy: 44.95%

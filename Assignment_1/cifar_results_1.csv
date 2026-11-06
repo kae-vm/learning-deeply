@@ -1,0 +1,4 @@
+Name,Test Accuracy
+Adam,0.6288
+AdamW,0.6289
+SGD,0.4495
