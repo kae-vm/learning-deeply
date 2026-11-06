@@ -125,41 +125,30 @@ def validate(
     epochs=5
 ):
     criterion = criterion()
-    best_vloss = 1e9
-    best_acc = 0.0
-    for epoch in range(epochs):
-        print(f"Epoch {epoch + 1}")
-        model.eval()
+    model.eval()
 
-        valid_loss = 0.0
-        correct = 0
-        total = 0
+    valid_loss = 0.0
+    correct = 0
+    total = 0
 
-        with torch.no_grad():
-            for i, data in enumerate(data_loader, 0):
-                inputs, labels = data
-                outputs = model(inputs)
-                loss = criterion(outputs, labels)
-                valid_loss += loss.item() * inputs.size(0)
+    with torch.no_grad():
+        for i, data in enumerate(data_loader, 0):
+            inputs, labels = data
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            valid_loss += loss.item() * inputs.size(0)
 
-                predicted = outputs.argmax(dim=1)  # class with highest score
-                correct += (predicted == labels).sum().item()
-                total += labels.size(0)
+            predicted = outputs.argmax(dim=1)  # class with highest score
+            correct += (predicted == labels).sum().item()
+            total += labels.size(0)
 
-        avg_vloss = valid_loss / total
-        accuracy = correct / total
+    avg_vloss = valid_loss / total
+    accuracy = correct / total
 
-        print(f"Valid Loss: {avg_vloss:.4f}")
-        print(f"Valid Accuracy: {accuracy * 100:.2f}%")
+    print(f"Valid Loss: {avg_vloss:.4f}")
+    print(f"Valid Accuracy: {accuracy * 100:.2f}%")
 
-        if avg_vloss < best_vloss:
-            print(f"new model is great, with average loss {avg_vloss} better than before: {best_vloss}")
-            best_vloss = avg_vloss
-            best_acc = accuracy
-            best_model_path = "saved_models/CNN"
-            torch.save(model.state_dict(), best_model_path)
-
-    return best_model_path, best_vloss, best_acc
+    return avg_vloss, accuracy
 
 
 def test(model, criterion=nn.CrossEntropyLoss):
@@ -194,12 +183,10 @@ def train_validate_test(model, optimizer):
     traccuracy = train(model, optimizer)
 
     # let's validate
-    best_model_path, best_vloss, vaccuracy = validate(model)
-    best_model = Net()
-    best_model.load_state_dict(torch.load(best_model_path))
+    avg_vloss, vaccuracy = validate(model)
     
     # let's test
-    avg_tloss, taccuracy = test(best_model)
+    avg_tloss, taccuracy = test(model)
 
     accuracies = {
         'train': traccuracy,
@@ -220,6 +207,7 @@ activations = {
 results = []
 
 for name, activation in activations.items():
+    torch.manual_seed(99)
     print(f"We will fit a model with activation function: {name}")
 
     model = Net(activation=activation)
@@ -238,12 +226,12 @@ for name, activation in activations.items():
 
 print(pd.DataFrame(results))
 # relu does the best, so we will use it for our optimiser testing
-best_activation = F.leaky_relu
+best_activation = F.gelu
 
 optimizer_factories = {
-    "SGD": lambda params: optim.SGD(),
-    "Adam": lambda params: optim.Adam(),
-    "AdamW": lambda params: optim.AdamW(),
+    "SGD": lambda params: optim.SGD(params, lr=0.001, momentum=0.9),
+    "Adam": lambda params: optim.Adam(params, lr=0.001),
+    "AdamW": lambda params: optim.AdamW(params, lr=0.001),
 }
 
 for name, make_optimizer in optimizer_factories.items():
@@ -254,36 +242,37 @@ for name, make_optimizer in optimizer_factories.items():
     accs = train_validate_test(model, optimizer)
 
     results.append({
-        "activation": "Leaky ReLU",
+        "activation": "GELU",
         "optimizer": name,
         "validation_accuracy": accs["valid"],
     })
 
-"""
 best_optimiser = optim.Adam
 
-# Adam with L2 regularisation does best, so we will use it further
+# Adam does best, so we will use it further
 
 for lr in [0.001, 0.01]:
-    for weight_decay in [1e-5, 5e-5, 1e-4]:
-        model = Net(activation=best_activation)
-        optimizer = best_optimiser(
-                model.parameters(),
-                lr=lr,
-                weight_decay=weight_decay
+    for weight_decay in [1e-5, 1e-4]:
+        for betas in [(0.9, 0.999), (0.95, 0.995), (0.99, 0.99)]:
+            model = Net(activation=best_activation)
+            optimizer = best_optimiser(
+                    model.parameters(),
+                    lr=lr,
+                    weight_decay=weight_decay,
+                    betas=betas
+                )
+            print(f"We will fit a model with lr={lr}, decay={weight_decay}, betas={betas}")
+            accs = train_validate_test(model, optimizer)
+            print(
+                f"lr={lr}, wd={weight_decay}, betas={betas} validation accuracy: "
+                f"{accs['valid']:.4f}"
             )
-        print(f"We will fit a model with lr={lr}, decay={weight_decay}")
-        accs = train_validate_test(model, optimizer)
-        print(
-            f"lr={lr} & wd={weight_decay} validation accuracy: "
-            f"{accs['valid']:.4f}"
-        )
-        results.append({
-            "activation": "ReLU",
-            "optimizer": "Adam",
-            "validation_accuracy": accs['valid'],
-            "learning_rate": lr,
-            "weight_decay": weight_decay
-        })
-"""
-print(pd.DataFrame(results))
+            results.append({
+                "activation": "ReLU",
+                "optimizer": "Adam",
+                "validation_accuracy": accs['valid'],
+                "learning_rate": lr,
+                "weight_decay": weight_decay,
+                "betas": betas
+            })
+pd.DataFrame(results).to_csv("results.csv", index=False)
