@@ -196,8 +196,6 @@ def train_validate_test(model, optimizer):
 
     return accuracies
 
-
-model = Net()
 activations = {
     "ReLU": F.relu,
     "LeakyReLU": F.leaky_relu,
