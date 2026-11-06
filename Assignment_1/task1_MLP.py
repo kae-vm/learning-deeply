@@ -1,11 +1,3 @@
-# TO DO
-    # Select the 3 best-performing hyperparameter configurations based on validation performance.
-    # Train on CIFAR-10 dataset to examine whether the performance gains transfer across datasets.
-
-    # Discuss your findings in the report (e.g., why do certain architectures or hyperparameters generalize differently on CIFAR-10 compared to Fashion-MNIST?).
-
-    # Note: The goal is not merely to achieve the highest possible test accuracy, but to gain solid practical intuition for tuning deep networks, conducting systematic experiments, and documenting findings clearly
-
 # ====================================
 # Import libraries
 # ====================================
@@ -53,6 +45,7 @@ test_data = datasets.FashionMNIST(
 class MLP(nn.Module):
     def __init__(
         self,
+        input_size=28*28,
         hidden_size=256,
         activation=nn.ReLU(),
         dropout=0.0
@@ -62,7 +55,7 @@ class MLP(nn.Module):
         self.flatten = nn.Flatten()
 
         self.network = nn.Sequential(
-            nn.Linear(28 * 28, hidden_size),
+            nn.Linear(input_size, hidden_size),
             activation,
             nn.Dropout(dropout),
             nn.Linear(hidden_size, 10)
@@ -147,8 +140,10 @@ activations = {
 }
 for activation_name, activation in activations.items():
     print(f"\nRunning experiment with {activation_name}")
+    torch.manual_seed(99)  # Reset the seed for reproducibility
 
     model = MLP(
+        input_size=28*28,
         hidden_size=256,
         activation=activation,
         dropout=0.2
@@ -186,7 +181,7 @@ for activation_name, activation in activations.items():
         "validation_accuracy": validation_accuracy
     })
 
-best_activation = nn.LeakyReLU()  # Based on the results, LeakyReLU performed the best
+best_activation = nn.LeakyReLU ()  # Based on the results, LeakyReLU performed the best
 
 # ======================================================
 # Run optimizer experiments
@@ -199,8 +194,10 @@ optimizers = {
 
 for optimizer_name, optimizer_class in optimizers.items():
     print(f"\nRunning experiment with {optimizer_name}")
+    torch.manual_seed(99)  # Reset the seed for reproducibility
 
     model = MLP(
+        input_size=28*28,
         hidden_size=256,
         activation=best_activation,
         dropout=0.2
@@ -237,15 +234,17 @@ for optimizer_name, optimizer_class in optimizers.items():
         "validation_accuracy": validation_accuracy
     })
 
-best_optimizer = optim.AdamW  # Based on the results, AdamW performed the best
+best_optimizer = optim.Adam  # Based on the results, Adam performed the best
 
 # ======================================================
 # Run learning rate experiments
 # ======================================================
 for lr in [0.001, 0.01, 0.1]:
     print(f"\nRunning experiment with learning rate {lr}")
+    torch.manual_seed(99)  # Reset the seed for reproducibility
 
     model = MLP(
+        input_size=28*28,
         hidden_size=256,
         activation=best_activation,
         dropout=0.2
@@ -282,7 +281,7 @@ for lr in [0.001, 0.01, 0.1]:
         "validation_accuracy": validation_accuracy
     })
 
-best_lr = 0.01  # Based on the results, learning rate of 0.01 performed the best
+best_lr = 0.001  # Based on the results, learning rate of 0.001 performed the best
 
 # ======================================================
 # Run hidden size experiments
@@ -290,8 +289,9 @@ best_lr = 0.01  # Based on the results, learning rate of 0.01 performed the best
 hidden_sizes = [128, 256, 512]
 for hidden_size in hidden_sizes:
     print(f"\nRunning experiment with hidden size {hidden_size}")
-
+    torch.manual_seed(99)  # Reset the seed for reproducibility
     model = MLP(
+        input_size=28*28,
         hidden_size=hidden_size,
         activation=best_activation,
         dropout=0.2
@@ -328,7 +328,7 @@ for hidden_size in hidden_sizes:
         "validation_accuracy": validation_accuracy
     })
 
-best_hidden_size = 128  # Based on the results, hidden size of 128 performed the best
+best_hidden_size = 256  # Based on the results, hidden size of 256 performed the best
 
 # ======================================================
 # Run dropout experiments
@@ -336,8 +336,10 @@ best_hidden_size = 128  # Based on the results, hidden size of 128 performed the
 dropout_rates = [0.0, 0.2, 0.5]
 for dropout in dropout_rates:
     print(f"\nRunning experiment with dropout rate {dropout}")
+    torch.manual_seed(99)  # Reset the seed for reproducibility
 
     model = MLP(
+        input_size=28*28,
         hidden_size=best_hidden_size,
         activation=best_activation,
         dropout=dropout
@@ -376,7 +378,7 @@ for dropout in dropout_rates:
 
 best_dropout = 0.0  # Based on the results, dropout of 0.0 performed the best
 
-# Save for later?
+# Save for later
 results_df = pd.DataFrame(results)
 
 results_df = results_df.sort_values(
@@ -386,24 +388,28 @@ results_df = results_df.sort_values(
 
 print(results_df.head(10))
 
+results_df.to_csv(
+    "top_10_mlp_valid.csv",
+    index=False
+)
+
 # ======================================================
 # Retraining and testing the final 3 models 
 # ======================================================
-
 top_3 = [
     {
         "activation": nn.LeakyReLU(),
         "hidden_size": 256,
-        "dropout": 0.2,
-        "optimizer": optim.AdamW,
+        "dropout": 0.0,
+        "optimizer": optim.Adam,
         "learning_rate": 0.001
     },
     {
-        "activation": nn.ReLU(),
+        "activation": nn.LeakyReLU(),
         "hidden_size": 256,
         "dropout": 0.2,
-        "optimizer": optim.SGD,
-        "learning_rate": 0.01
+        "optimizer": optim.Adam,
+        "learning_rate": 0.001
     },
     {
         "activation": nn.LeakyReLU(),
@@ -421,6 +427,7 @@ for i, config in enumerate(top_3):
     print(f"\nTesting model {i+1}")
 
     model = MLP(
+        input_size=28*28,
         hidden_size=config["hidden_size"],
         activation=config["activation"],
         dropout=config["dropout"]

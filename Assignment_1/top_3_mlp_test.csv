@@ -1,4 +1,4 @@
 model,activation,hidden_size,dropout,optimizer,learning_rate,test_accuracy
-1,LeakyReLU,256,0.2,AdamW,0.001,0.8792
-2,ReLU,256,0.2,SGD,0.01,0.8344
-3,LeakyReLU,256,0.2,SGD,0.01,0.8353
+1,LeakyReLU,256,0.0,Adam,0.001,0.8881
+2,LeakyReLU,256,0.2,Adam,0.001,0.8829
+3,LeakyReLU,256,0.2,SGD,0.01,0.8324
