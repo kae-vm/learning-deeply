@@ -80,7 +80,7 @@ results = []
 
 batch_size = 64
 
-train_dataloader = DataLoader(training_data, 
+train_dataloader = DataLoader(train_data, 
                               batch_size=batch_size,
                               shuffle=True)
 
@@ -377,12 +377,90 @@ for dropout in dropout_rates:
 best_dropout = 0.0  # Based on the results, dropout of 0.0 performed the best
 
 # Save for later?
+results_df = pd.DataFrame(results)
 
-# results_df = pd.DataFrame(results)
-# print(results_df)
+results_df = results_df.sort_values(
+    by="validation_accuracy",
+    ascending=False
+)
 
-# best_model = ...
-# test_accuracy = evaluate_model(
-#     best_model,
-#     test_dataloader
-# )
+print(results_df.head(10))
+
+# ======================================================
+# Retraining and testing the final 3 models 
+# ======================================================
+
+top_3 = [
+    {
+        "activation": nn.LeakyReLU(),
+        "hidden_size": 256,
+        "dropout": 0.2,
+        "optimizer": optim.AdamW,
+        "learning_rate": 0.001
+    },
+    {
+        "activation": nn.ReLU(),
+        "hidden_size": 256,
+        "dropout": 0.2,
+        "optimizer": optim.SGD,
+        "learning_rate": 0.01
+    },
+    {
+        "activation": nn.LeakyReLU(),
+        "hidden_size": 256,
+        "dropout": 0.2,
+        "optimizer": optim.SGD,
+        "learning_rate": 0.01
+    }
+]
+
+test_results = []
+
+for i, config in enumerate(top_3):
+
+    print(f"\nTesting model {i+1}")
+
+    model = MLP(
+        hidden_size=config["hidden_size"],
+        activation=config["activation"],
+        dropout=config["dropout"]
+    )
+
+    optimizer = config["optimizer"](
+        model.parameters(),
+        lr=config["learning_rate"]
+    )
+
+    train_model(
+        model,
+        train_dataloader,
+        optimizer,
+        criterion,
+        epochs=10
+    )
+
+    test_accuracy = evaluate_model(
+        model,
+        test_dataloader
+    )
+
+    print(f"Test accuracy: {test_accuracy:.4f}")
+
+    test_results.append({
+        "model": i + 1,
+        "activation": config["activation"].__class__.__name__,
+        "hidden_size": config["hidden_size"],
+        "dropout": config["dropout"],
+        "optimizer": config["optimizer"].__name__,
+        "learning_rate": config["learning_rate"],
+        "test_accuracy": test_accuracy
+    })
+
+test_results_df = pd.DataFrame(test_results)
+
+print(test_results_df)
+
+test_results_df.to_csv(
+    "top_3_mlp_test.csv",
+    index=False
+)
