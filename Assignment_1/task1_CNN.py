@@ -268,7 +268,7 @@ for lr in [0.001, 0.01]:
                 f"{accs['valid']:.4f}"
             )
             results.append({
-                "activation": "ReLU",
+                "activation": "GELU",
                 "optimizer": "Adam",
                 "validation_accuracy": accs['valid'],
                 "learning_rate": lr,
