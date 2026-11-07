@@ -1,0 +1,67 @@
+# ====================================
+# Import libraries
+# ====================================
+import random
+import pandas as pd
+import torch
+from torch import nn, optim
+import torch.nn.functional as F
+from torch.utils.data import Dataset, DataLoader, random_split
+from torchvision import utils
+from torchvision import datasets
+from torchvision.transforms import v2
+from utils import Net, train_validate_test
+
+# ====================================
+# Apply on CIFAR-10
+# ====================================
+random.seed(99)
+generator = torch.Generator().manual_seed(99)
+batch_size = 64
+
+cifar_train = datasets.CIFAR10(
+    root='./data',
+    train=True,
+    download=True,
+    transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)])
+)
+
+cifar_test = datasets.CIFAR10(
+    root='./data',
+    train=False,
+    download=True,
+    transform=v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)])
+)
+cifar_trainloader = DataLoader(
+    cifar_train,
+    batch_size=batch_size,
+    shuffle=True,
+    num_workers=2
+)
+
+cifar_testloader = DataLoader(
+    cifar_test,
+    batch_size=batch_size,
+    shuffle=False,
+    num_workers=2
+)
+
+# configuring the best models
+results = []
+optimiser_factories = {
+        "Adam": lambda params: optim.Adam(params, lr=1e-3, weight_decay=1e-5, betas=(0.9, 0.999)),
+        "AdamW": lambda params: optim.AdamW(params, lr=1e-3),
+        "SGD": lambda params: optim.SGD(params, lr=0.001, momentum=0.9)
+    }
+
+for name, make_optimiser in optimiser_factories.items():
+    torch.manual_seed(99)
+    model = Net(activation=F.gelu)
+    optimiser = make_optimiser(model.parameters())
+    accs = train_validate_test(model, optimiser, cifar_trainloader, cifar_testloader)
+    results.append({
+        'Name': name,
+        'Test Accuracy': accs['test']
+    })
+
+pd.DataFrame(results).to_csv("cifar_results_1.csv", index=False)

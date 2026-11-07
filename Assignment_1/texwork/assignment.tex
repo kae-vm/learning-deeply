@@ -4,6 +4,7 @@
 \usepackage[margin=3cm]{geometry}
 \usepackage{tabularray}
 \usepackage{graphicx}
+\DeclareFontFamily{T1}{cmtt}{\hyphenchar \font=45}
 \title{Assignment 1: Report}
 \author{Martina Carminati, Sanna Plomp, Keval Mehta}
 \date{\today}
@@ -11,13 +12,13 @@
 \begin{document}
 \maketitle	
 
-\section{Learning the Basics of PyTorch}
+\section{Learning the Basics of PyTorch}\label{sec:basics}
 \subsection{Multi-layer Perceptron}
 In this first part, we started by setting a seed for reproducibility, and then importing the Fashion-MNIST dataset from \texttt{torchvision.datasets}. The training and test datasets were imported separately, and the training dataset was split into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
 
-To start off the systematic experimentation, we used a baseline model with the following parameters: hidden\_size = 256, dropout = 0.2, optimiser = SGD, and learning\_rate = 0.01. For validation, 10 epochs were used to get a good feel for the accuracy without overfitting. The experimentation is done sequentially with a small amount of values for each hyperparameter, more as a show of proof than to find the all-time highest possible accuracy. 
+To start off the systematic experimentation, we used a baseline model with the following parameters: \texttt{hidden\_size} \(= 256\), \texttt{dropout} \(= 0.2\), \texttt{optimiser} \(=\) \texttt{SGD}, and \texttt{learning\_rate} \(= 0.01\). For validation, 10 epochs were used to get a good feel for the accuracy without overfitting. The experimentation is done sequentially with a small amount of values for each hyperparameter, more as a show of proof than to find the all-time highest possible accuracy. 
 
-In the first round, only the acitivation function was varied, while keeping the other parameters fixed. ReLU, LeakyReLU, and GeLU were tested:
+In the first round, only the activation function was varied, while keeping the other parameters fixed. The following activation functions were used.
 \begin{description}
 	\item[ReLU]
 		\[
@@ -26,7 +27,7 @@ In the first round, only the acitivation function was varied, while keeping the 
 			x & x \ge 0 \\
 			0 & \text{otherwise}
 		\end{cases}
-		.\] 
+		,\] 
 	\item[Leaky ReLU]
 		\[
 		f(x) =
@@ -34,14 +35,14 @@ In the first round, only the acitivation function was varied, while keeping the 
 			x & x \ge 0 \\
 			mx & \text{otherwise}
 		\end{cases}
-		.\] 
+		,\] 
 	\item[GeLU]
 		\[
 		f(x) = x \cdot\Phi(x)
 		.\] 
 \end{description}
 
-Leaky ReLU resulted in the highest validation accuracy of 0.8857. See table below for the results of the different activation functions.
+Leaky ReLU resulted in the highest validation accuracy of 0.8857. See Table \ref{tab:mlpactivations} for the results of the different activation functions.
 \begin{table}[hbt]
 \begin{tblr}{
 	colspec = {X[c,m]X[c,m]X[c,m]},
@@ -50,7 +51,7 @@ Leaky ReLU resulted in the highest validation accuracy of 0.8857. See table belo
 	row{1} = {font=\bfseries}
 }
 Activation & Optimiser & Validation Accuracy \\
-ReLU & SGD & 88.32 \\
+ReLU & \SetCell[r=3]{c} SGD & 88.32 \\
 Leaky ReLU & SGD & 88.57 \\
 GELU & SGD & 87.73 \\
 \end{tblr}
@@ -58,7 +59,7 @@ GELU & SGD & 87.73 \\
 \label{tab:mlpactivations}
 \end{table}
 
-Next, we will continue varying the optimisers, using ReLU as the activation function. All other hyperparameters were kept fixed, as SGD, Adam, and AdamW were tested. Adam resulted in the highest validation accuracy \= 0.8568. See table below for the results of the different optimisers.
+Next, we will continue varying the optimisers, using ReLU as the activation function. All other hyperparameters were kept fixed, as SGD, Adam, and AdamW were tested. Adam resulted in the highest validation accuracy \(= 0.8568\). See Table \ref{tab:mlpoptimisers} for the results of the different optimisers.
 \begin{table}[hbt]
 \begin{tblr}{
 	colspec = {X[c,m]X[c,m]X[c,m]},
@@ -67,7 +68,7 @@ Next, we will continue varying the optimisers, using ReLU as the activation func
 	row{1} = {font=\bfseries}
 }
 Activation & Optimiser & Validation Accuracy \\
-Leaky ReLU & SGD & 84.77 \\
+\SetCell[r=3]{c} Leaky ReLU & SGD & 84.77 \\
 Leaky ReLU & Adam & 86.58 \\
 Leaky ReLU & AdamW & 83.08 \\
 \end{tblr}
@@ -75,21 +76,21 @@ Leaky ReLU & AdamW & 83.08 \\
 \label{tab:mlpoptimisers}
 \end{table}
 
-Continuing, we varied the learning rate. The following values were used for the learning rate [0.001, 0.01, 0.1]. Learning rate \= 0.001 resulted in the highest validation accuracy of 0.8872. 
+Continuing, we varied the learning rate. The following values were used for the learning rate [0.001, 0.01, 0.1]. Learning rate \(= 0.001\) resulted in the highest validation accuracy of 0.8872. 
 
 The size of the hidden layer was also varied. The following hidden sizes were tested: 128, 256, and 512. From the results, the hidden size of 256 was the best, with a validation accuracy of 0.8560.
 
-Finally, we tried out dropout values of 0.0, 0.2, and 0.5. Dropout \= 0.0 resulted in the highest validation accuracy of 0.8925. The top 3 performing models were then retrained on the train set, and tested on the test set. The results are shown in the table below. The best performing model was the one with Leaky ReLU, Adam, learning rate \= 0.001, hidden size \= 256, and dropout \= 0.0, with a test accuracy of 0.8881.
+Finally, we tried out dropout values of 0.0, 0.2, and 0.5. Dropout \(= 0.0\) resulted in the highest validation accuracy of 0.8925. The top 3 performing models were then retrained on the train set, and tested on the test set. The results are shown in Table \ref{tab:mlptest}. The best performing model was the one with Leaky ReLU, Adam, learning rate \(= 0.001\), hidden size \(= 256\), and dropout \(= 0.0\), with a test accuracy of 0.8881.
 
 \begin{table}[hbt]
 \begin{tblr}{
-	colspec = {X[c,m]X[c,m]X[c,m]},
+	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]},
 	hlines, vlines,
 	cell{2-Z}{Z} = {appto=\%},
 	row{1} = {font=\bfseries}
 }
 Activation & Hidden Size & Dropout & Optimiser & Learning Rate & Test Accuracy \\
-Leaky ReLU & 256 & 0.0 & Adam & 0.001 & 88.81 \\
+\SetCell[r=3]{c} Leaky ReLU & 256 & 0.0 & Adam & 0.001 & 88.81 \\
 Leaky ReLU & 256 & 0.2 & Adam & 0.001 & 88.29 \\
 Leaky ReLU & 256 & 0.2 & SGD & 0.01 & 83.24 \\
 \end{tblr}
@@ -97,17 +98,17 @@ Leaky ReLU & 256 & 0.2 & SGD & 0.01 & 83.24 \\
 \label{tab:mlptest}
 \end{table}
 
-These top 3 models were then trained and tested on the CIFAR-10 dataset, adjusting them only for number of channels. Performance was not as strong, as demonstrated in Table \ref{tab:mlpcifar}. The best performing model was the one with Leaky ReLU, Adam, learning rate \= 0.001, hidden size \= 256, and dropout \= 0.0, with a test accuracy of 0.6216.
+These top 3 models were then trained and tested on the CIFAR-10 dataset, adjusting them only for number of channels. Performance was not as strong, as demonstrated in Table \ref{tab:mlpcifar}. The best performing model was the one with Leaky ReLU, Adam, learning rate \(= 0.001\), hidden size \(= 256\), and dropout \(= 0.0\), with a test accuracy of 0.4842.
 
 \begin{table}[hbt]
 \begin{tblr}{
-	colspec = {X[c,m]X[c,m]X[c,m]},
+	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]},
 	hlines, vlines,
 	cell{2-Z}{Z} = {appto=\%},
 	row{1} = {font=\bfseries}
 }
 Activation & Hidden Size & Dropout & Optimiser & Learning Rate & Test Accuracy \\
-Leaky ReLU & 256 & 0.0 & Adam & 0.001 & 48.42 \\
+\SetCell[r=3]{c} Leaky ReLU & 256 & 0.0 & Adam & 0.001 & 48.42 \\
 Leaky ReLU & 256 & 0.2 & Adam & 0.001 & 43.54 \\
 Leaky ReLU & 256 & 0.2 & SGD & 0.01 & 44.02 \\
 \end{tblr}
@@ -115,7 +116,11 @@ Leaky ReLU & 256 & 0.2 & SGD & 0.01 & 44.02 \\
 \label{tab:mlpcifar}
 \end{table}
 
-TODO=add in more explanation of why the performance is worse on CIFAR-10, and what could be done to improve it.
+The multi-layer perceptron model works by assigning weights to pixels, in comparison to convolutional structures, which takes into account neighbouring pixel values as well. This means that the network tries to learn weights by pixel, which is a strength for values that are invariate, applying roughly to the Fashion-MNIST dataset as images are centred and approximately at the same location, as compared to CIFAR-10, where the images' constituents move around within the images, and aren't always at the same location, which doesn't lead to a high accuracy.
+
+Adding more layers and giving the network a capability to be more flexible would help increase accuracy, but the point remains that MLPs aren't the best tools for images.
+
+Within the three results, a dropout of 0.2 does worse than no dropout, which may be because MLP needs all its capacity to perform, and dropout randomly sets some activations to 0 to prevent overfitting, which is not happening in this case, and hence dropout does not help performance.
 
 \subsection{Convolutional Neural Networks}
 Like in the previous section, a seed was set for reproducibility, and the dataset was imported. After importing the train and test separately, we split the training dataset into two subsets: what we will use for training (90\%), and validation (10\%). Setting batch size to 64, we created data loaders that will then load the data into the models.
@@ -141,7 +146,7 @@ Defining functions for training, validating, and testing, we then moved to the s
 	row{1} = {font=\bfseries}
 }
 Activation & Optimiser & Validation Accuracy \\
-ReLU & SGD & 81.25 \\
+ReLU & \SetCell[r=3]{c} SGD & 81.25 \\
 Leaky ReLU & SGD & 81.12 \\
 GELU & SGD & 81.75 \\
 \end{tblr}
@@ -158,7 +163,7 @@ GELU & SGD & 81.75 \\
 	row{1} = {font=\bfseries}
 }
 Activation & Optimiser & Validation Accuracy \\
-GELU & SGD & 81.75 \\
+\SetCell[r=3]{c} GELU & SGD & 81.75 \\
 GELU & Adam & 90.13 \\
 GELU & AdamW & 90.00 \\
 \end{tblr}
@@ -171,9 +176,10 @@ GELU & AdamW & 90.00 \\
 	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]X[c,m]},
 	hlines, vlines,
 	cell{2-Z}{3-Z} = {mode=math},
+	row{1} = {font=\bfseries}
 }
 Activation & Optimiser & Validation Accuracy & Learning Rate & Weight Decay & Betas \\
-GELU & Adam & 0.9035 & 10^{-3} & 10^{-5} & (0.9, 0.999) \\
+\SetCell[r=12]{c} GELU & \SetCell[r=12]{c} Adam & 0.9035 & 10^{-3} & 10^{-5} & (0.9, 0.999) \\
 GELU & Adam & 0.9002 & 10^{-3} & 10^{-5} & (0.95, 0.995) \\
 GELU & Adam & 0.8960 & 10^{-3} & 10^{-5} & (0.99, 0.99) \\
 GELU & Adam & 0.9025 & 10^{-3} & 10^{-4} & (0.9, 0.999) \\
@@ -198,7 +204,8 @@ Further, after this, we ran the models on the CIFAR-10 dataset, adjusting them o
 \begin{tblr}{
 	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]},
 	hlines, vlines,
-	row{2-Z} = {mode=math}
+	row{2-Z} = {mode=math},
+	row{1} = {font=\bfseries}
 }
 Learning Rate & Weight Decay & Betas & Test Accuracy \\
 10^{-3} & 10^{-5} & (0.9, 0.999) & 0.6216 \\
@@ -213,7 +220,8 @@ Learning Rate & Weight Decay & Betas & Test Accuracy \\
 \begin{tblr}{
 	colspec = {X[c,m]X[c,m]},
 	hlines, vlines,
-	cell{2-Z}{2} = {mode=math}
+	cell{2-Z}{2} = {mode=math},
+	row{1} = {font=\bfseries}
 }
 Name & Test Accuracy \\
 Adam & 0.6288 \\
@@ -227,5 +235,37 @@ SGD & 0.4495 \\
 This could be due to the fact that in essence, Fashion-MNIST is a much simpler task, where the items of clothing are centred, and single-channel, and there is possibly a high level of separation between classes. The images of CIFAR-10 are not only RGB, but more complicated, and not as well separated. SGD performs much worse than Adam, which could be due to a weakly-trained learning rate on CIFAR, as opposed to Adam, which generalises better and isn't as dependent on the learning rate, as it uses the moments to adapt. While this difference is large, there is not much between Adam and AdamW, which may be due to both not overfitting, hence the decay is not a huge advantage.
 
 Within the Adam optimiser, lowering the decay enables it to adapt faster, which may make it perform better on a complex dataset. I was not able to vary the architecture as much as I would've liked to, but adding more convolutional kernels may help the models to generalise better to the more complicated CIFAR-10 dataset. 
+
+\section{Develop a ``Tell-the-Time'' Network}
+For the second task, we had to design, train, and evaluate a convolutional neural network on images of clocks to tell the time using the learnings from Task \ref{sec:basics}.
+
+% data exploration?
+
+\subsection{Classification}
+% CNN was made and ..
+
+% created train and validate functions..
+
+% different bin sizes were tested..
+
+% tested
+
+\subsection{Regression}
+% new CNN, different from before as..
+
+% new functions, different as..
+
+% different parameters were tested for regression loss..
+
+% tested
+
+\subsection{Multi-Head Models}
+% new CNN, different from before as..
+
+% new functions, different as..
+
+% different parameters were tested for regression loss..
+
+% tested
 
 \end{document}
