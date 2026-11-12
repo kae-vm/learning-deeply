@@ -236,30 +236,171 @@ This could be due to the fact that in essence, Fashion-MNIST is a much simpler t
 
 Within the Adam optimiser, lowering the decay enables it to adapt faster, which may make it perform better on a complex dataset. I was not able to vary the architecture as much as I would've liked to, but adding more convolutional kernels may help the models to generalise better to the more complicated CIFAR-10 dataset. 
 
+%--------------------------------------------------------------
 \section{Develop a ``Tell-the-Time'' Network}
 For the second task, we had to design, train, and evaluate a convolutional neural network on images of clocks to tell the time using the learnings from Task \ref{sec:basics}.
 
-% data exploration?
+The ``Tell-The-Time'' is an image recognition task. The aim is to train a CNN that predicts the time from images of analog clocks as accurately as possible. To do so, three possible approaches are used: classification (treat the time as n-minute bins e.g., 30 minute); regression (treat the time as continuous e.g., mapping "03:00" → 3.0 and "05:30" → 5.5); and multi-head (time is binned in 60 classes for minutes and 12 classes for hours, and we produce two distinct outputs). The target is to find which method gives the lowest ``common-sense" error: the absolute time difference between predicted time and true time. 
 
+\subsection{Data and preprocessing}\label{sec:cnnselection}
+
+We are provided with a collection of 18,000 grayscale images of analog clocks with two possible resolutions: the original resolution (150\(\times\)150) and a down-sampled version (75\(\times\)75). To build the architecture of the models, the down-sampled version has been used, while the final results refer to the original resolution. We were provided also with 18,000 labels of size 2 (18000, 2) that represent the corresponding hours, and minutes (it's a supervised task).
+
+After inspecting the shape of our data, we decided to convert the labels (e.g., 11:59) into the total number of minutes (e.g., 719) using the formula (\(\text{hour}\cdot 60 + \text{ minute}\)), obtaining values from 0 to 719. To make the training easier, we standardised the pixels (originally from 0 to 255 into [0, 1]), using the mean and standard deviation of the whole dataset. Then, we performed a train-validate-test split just like in the previous tasks, using 80\% training, 10\% validation, and 10\% test with \texttt{random\_split} and shuffling to remove the influence of the order. To ensure reproducibility, we created the function \texttt{reset\_seed()} that can be conveniently called whenever needed. Lastly, since the images were in greyscale, one channel dimension has been added to the image tensors. 
+
+Looking at the images and summary statistics of the dimensions of those images, two aspects arise:
+\begin{itemize}
+    \item The images are slightly tilted (in 3D), rotated, zoomed-in, and contain small bright spots. One possible way to handle this problem is by using data augmentation: by randomly transforming the original image, the model can learn to be more robust to such differences. To do so, we can use \texttt{torchvision.\allowbreak transforms.\allowbreak v2} from PyTorch.
+    \item The circular nature of time: because time is cyclical, at the boundary 12:00 - 00:00 two predictions such as 11:59 and 00:02 are only 3 minutes apart, but when we convert them into total minutes (11:59 = 11*60 + 59 = 719 minutes and 00:02 = 0*60 + 2 = 2 minutes), and we take the default error, they seem to be 719 - 2 = 717 minutes apart. One possible way to account for this is to take the minimum distance on both sides of the clock, so that the difference never exceeds half of the clock.
+\end{itemize}
+
+To be able to compare the results from the three sub-tasks, classification, regression, and multi-head, we decided to build a common CNN baseline. Only the output layers for each task's CNN and the loss function for the regression task are different. We selected the best baseline setting for the CNN using the \(75\times75\) images dataset, with the classification approach using 30-minute bins (24 classes). We built the very first CNN option as similar as possible to the CNN from Task 1, then we tried to improve from there. 
+ 
+All the models were compared using ``common-sense error" on the validation set:
+\[
+e(t, \hat t) = \min\big(|t-\hat t|,\; 720-|t-\hat t|\big),
+\]
+where \(t\) is the true time, and \(\hat t\) represents its prediction, both in minutes, averaged over all images. Using the term \(720-|t-\hat t|\) allows to account for the problem that arises at the boundary. 
+
+Since we are using the classification approach, the predicted classes were then re-converted into minutes by taking the midpoint of the bin. Experiments 1, 2 and 5 were trained using 20 epochs and 3 different seeds, and then we compared the results, after we computed the mean and standard deviation of the resulting error. In this way, we can make sure that the results are not due to random chance. Experiment 3 was run on one single seed, because in early runs we noticed that the differences between the learning rates were large enough (so we didn't need to pool the results), and using 40 epochs, because a small learning rate (e.g., lr = 0.0003) needs more time to train. Lastly, experiment 4 was run using 50 epochs, because its point was to check when the curves stopped learning (no multiple seed was needed).
+
+\paragraph{Depth} As a baseline, we used the CNN of Task 1; we added padding to each convolutional layer, so that the \(3\times3\) convolutions kept the size of the images and only the pooling shrunk it, and we removed one fully connected layer to reduce the number of parameters. Then we built two more CNNs, adding one convolutional layer at a time. Each layer is a \(3\times3\) convolution, ReLU, and \(2\times2\) max pooling. Results are reported in Table~\ref{tab:depth}. We can notice that adding convolutional layers helps the model inspect the image. Each pooling halves the image, so the deeper layers look at larger parts of the clock. The network with four convolutional layers reported the lowest error, therefore we selected it.
+
+\begin{table}[hbt]
+\begin{tblr}{
+    colspec = {X[c,m]X[c,m]X[c,m]},
+    hlines, vlines,
+    row{1} = {font=\bfseries}
+}
+Depth & Mean & Std \\
+2 & 45.828 & 1.705 \\
+3 & 23.483 & 1.904 \\
+4 & 19.498 & 2.820 \\
+\end{tblr}
+\caption{Pooled validation results for CNNs depths.}
+\label{tab:depth}
+\end{table}
+
+\paragraph{Weights initialisation} Different weight initializations can influence the way our network learns. Therefore, we compared the PyTorch default initialization, with He (that is suited for ReLu) and Xavier (that was suggested in one of the exercises of the book ``Dive into Deep Learning"), with biases set to zero. The results are displayed in Table~\ref{tab:init}, and as we can see there was almost no difference between the three initializations, therefore we kept the default setting.
+ 
+\paragraph{Learning rate} Then we experimented with learning rates. We tried three different values: \(3\cdot10^{-3}\), \(10^{-3}\), and \(3\cdot10^{-4}\). We used only one seed (because the differences were large enough) and 40 epochs (because smaller learning rates learn more slowly). The learning rate of \(10^{-3}\) performed best, with an error of 14.44 minutes, therefore is selected.
+ 
+\paragraph{Number of epochs} To check how many epochs were needed, we tried training our selected CNN for 50 epochs, and tracked the training loss, validation loss, and validation error (Figure~\ref{fig:training_curves}). In the first three epochs the loss was stuck at approximately 3.18 with an error of 176.41. The value 3.18 is approximately the logarithm of the number of classes (24): this means that the model is still guessing at random. After that initial plateau the error dropped quickly, reaching an error of 18.03 at around 30 epochs, and 16.94 at 40 epochs. However, looking at Figure~\ref{fig:training_curves}, we can see that after 30 epochs (more or less) the training loss keeps going down while the validation loss starts to rise. This might be a sign of overfitting. Based on this, we kept the number of epochs low (20 epochs) to train the models on the 75\(\times\)75 images, since it's an easier task, and we increased it to 40 epochs for the 150\(\times\)150 dataset.
+ 
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.95\textwidth]{pics/trainingcurves.png}
+\caption{Training and validation loss (left) and validation common sense error (right) of the four-block CNN over 50 epochs}
+\label{fig:training_curves}
+\end{figure}
+ 
+\paragraph{Batch size} Lastly, we compared three possible batch sizes: 32, 64, and 128. We run this experiment using 20 epochs and 3 seeds and we averaged the results. A batch size of 64 was our baseline (used for Task 1), batch size 32 performed slightly better, while batch size 128 gave unsatisfactory results. The improvement obtained by using batch 32 was very small, and since the training is slower, so we kept 64. 
+ 
+\paragraph{Final network} The final CNN used in all the three sub-tasks of Task 2 is shown in Table~\ref{tab:basecnn}. Only the output layer changes between the classification, regression, and multi-head models, and for the regression task we had to use a different loss function.
+ 
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]},
+	hlines, vlines,
+	row{1} = {font=\bfseries}
+}
+Layer & Output size \\
+Input & \(1\times75\times75\) \\
+Conv \(3\times3\) (6), ReLU, MaxPool & \(6\times37\times37\) \\
+Conv \(3\times3\) (16), ReLU, MaxPool & \(16\times18\times18\) \\
+Conv \(3\times3\) (32), ReLU, MaxPool & \(32\times9\times9\) \\
+Conv \(3\times3\) (64), ReLU, MaxPool & \(64\times4\times4\) \\
+Flatten, Linear, ReLU & 120 \\
+Linear (output) & depends on the task \\
+\end{tblr}
+\caption{Base CNN used for Task 2}
+\label{tab:basecnn}
+\end{table}
+
+Additionally, all the three sub-tasks (Classification, Regression, and Multi Head) used the same number of epochs (20), Adam optimizer with learning rate of 0.001, the same seed, the same train-validation-test split and the same error metric. 
+
+%--------------------------------------
 \subsection{Classification}
+
+% Data type
+
 % CNN was made and ..
+The CNN for the classification task, was the selected CNN presented in Table~\ref{tab:basecnn}, with the following output layer \texttt{self.fc2 = nn.Linear(120, num\_classes)}, a fully connected layer with as many outputs as the number of classes.
 
 % created train and validate functions..
+We created the train and validate functions, and to compute the common-sense error, we re-converted the predicted classes into minutes by taking the midpoint of the bin. 
 
 % different bin sizes were tested..
+For the classification task time was divided into bins of equal size, and each bin is a class. We run an experiment to test the performance of the network with different bin sizes of 30, 15, 5, and 1 minutes.
 
-% tested
+% tested 
+The 30-minute bins produced the lowest common-sense error, with a test error of 17.18 minutes. Using the other bin sizes, the error grows quickly as the bins get smaller. With 1-minute bins the training loss stayed at about 6.58 (which is the logarithm of the number of classes\(=\ln 720\)) for all epochs, so this means that the model never learned, it was simply random guessing. For this reason, we run a second experiment, training for 100 epochs the model with 1-minute bins. However, the results did not change, which means that the network is not powerful enough for this task.
+ 
+This shows the limitations of high-cardinality classification:
+\begin{itemize}
+	\item With more classes, the task is harder to fit, because here 1-minute classes are harder to distinguish. The model has fewer example images to use to learn.
+	\item The loss function for the classification task does not account for how ``off" the predictions are: all wrong predictions are simply classified as ``incorrect". The model does not distinguish between a prediction that is one minute off and one that is hours away from the true value. 
+	\item Dividing a continuous variable into bins always causes loss of information. In addition, we used the midpoint to predict the bins, so even a perfect classifier would have an error. 
+\end{itemize}
 
+%--------------------------------------------
 \subsection{Regression}
+
+% Data type
+For the regression task, time is treated as one continuous number, converted into hours using \(\text{hour }+\text{ minute}/60\) (so 3:30 becomes 3.5). 
+
 % new CNN, different from before as..
+The CNN is the same as before, with the difference that the output layer has a single neuron. We compared three loss functions with 20 epochs.
 
 % new functions, different as..
 
 % different parameters were tested for regression loss..
+Here we run an experiment to check which loss function would be the best. We tried out three different loss functions: MSE Loss, MAE Loss and SmoothL1 Loss. The MSE loss penalises strongly the magnitude of the errors by taking their squared value, therefore large errors get a very high penalty. This means that if there is a very bad picture, that gives a huge error, it will severely affect
+the training process; the MSE is very sensitive to outliers. MAE, on the other hand, penalises every unit of error equally.
+For this reason it is less sensitive to outliers, but this also means that small errors are penalised just as much as the large ones.
+The Smooth Loss is a mix of the two: for errors smaller than the threshold it behaves like the MSE (so the gradients get shrunk), 
+but for errors larger, it behaves like MAE (penalising units equally).
 
-% tested
+We found out that \texttt{SmoothL1Loss} performed best, with a test error of 65.20 minutes. This error is still very high and is much worse than classification. The main reason why this happens is the problem at the boundary at 11:59 - 00:00 mentioned above. Two predictions such as 11:59 and 00:02 are only 3 minutes apart, but as regression predictions they are respectively 11.98 and 0.03 hours,
+almost 12 hours apart. This is due to the circular nature of time, but it causes a big problem: the loss function doesn't know that these two predictions are actually close, therefore it penalises them as if they were actually 12 hours apart. We handled this problem only in the validation function by taking \texttt{torch.remainder(outputs, 12)} and \texttt{torch.minimum(difference, 720 - difference)} to compute the ``common sense error". However, this aspect is not handled in the training. 
 
+%---------------------------------------
 \subsection{Multi-Head Models}
+
+% new CNN, different from before as..
+
+% new functions, different as..
+
+For the multi-head task, we kept as usual the baseline CNN, and then we split the output layer into two heads: one with 12 outputs (for the hours) and one with 60 outputs (for the minutes). The forward pass returns both outputs. Both heads are trained with cross-entropy, and the two losses are combined as
+\[
+L = L_{\text{hour}} + \alpha \cdot L_{\text{minute}}.
+\]
+The predicted time is \(\hat h\cdot60+\hat m\), where \(\hat h\) and \(\hat m\) are the classes with the highest score in each head. We tested \(\alpha \in \{0.5, 1, 2\}\) with 20 epochs.
+
+% different parameters were tested for regression loss..
+We then tested different alpha values to combine the losses from the two heads, and found out that \(\alpha = 0.5\) performed best, with a test error of 12.96 minutes, the best result so far on the \(75\times75\) images. A possible explanation is the fact that a small \(\alpha\) gives more weight to the loss on the hour. This makes sense for the common-sense error: a wrong hour is off by at least 60 minutes. The model with \(\alpha=1\) did not learn at all: its loss stayed at \(\approx 6.58\). The model with \(\alpha = 2\) was also stuck for the first epochs and then started learning. The results are shown in Table~\ref{tab:multihead}.
+
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]},
+	hlines, vlines,
+	row{1} = {font=\bfseries}
+}
+\(\boldsymbol{\alpha}\) & Validation Error (min) \\
+0.5 & 13.86 \\
+1.0 & 181.48 \\
+2.0 & 29.93 \\
+\end{tblr}
+\caption{Multi-head model with different values of \(\alpha\) on the \(75\times75\) images (20 epochs)}
+\label{tab:multihead}
+\end{table}
+
+% tested
+The multi-head model works better than both the classification task and the regression task. The reason why is that it follows the same structure of the classification task (which already performs better than regression), and then splits the classification problem in two smaller parts. Instead of 720 classes, it has 12 and 60 classes. 
+
+%---------------------------------
+\subsection{Comparison and \(150\times150\) Images}\label{sec:comparison}
+
 % new CNN, different from before as..
 
 % new functions, different as..
@@ -267,5 +408,45 @@ For the second task, we had to design, train, and evaluate a convolutional neura
 % different parameters were tested for regression loss..
 
 % tested
+
+
+Finally, we trained all the three approaches again on the \(150\times150\) images dataset, using the best settings from the \(75\times75\) experiments and 40 epochs for all of them. Here, we also added the 1-minute classifier, because it allows for a more fair comparison between the approaches: classifying on 30-minutes bins is clearly easier than both the regression and multi-head task. The comparison is fair only if we compare them while using 1-minute bins for classification, in this way we have the same resolution as the regression and multi-head models. The results are in Table~\ref{tab:final}.
+ 
+\begin{table}[hbt]
+\begin{tblr}{
+	colspec = {X[c,m]X[c,m]X[c,m]X[c,m]},
+	hlines, vlines,
+	row{1} = {font=\bfseries}
+}
+Formulation & Setting & Test Error \(75\times75\) (min) & Test Error \(150\times150\) (min) \\
+Classification & 30-min bins & 17.18 & 23.55 \\
+Classification & 1-min bins & -- & 130.40 \\
+Regression & \texttt{SmoothL1Loss} & 65.20 & 49.25 \\
+Multi-head & \(\alpha = 0.5\) & 12.96 & 176.73 \\
+\end{tblr}
+\caption{Test common-sense error of the best models. Comparison between 75x75 and 150x150 resolutions results}
+\label{tab:final}
+\end{table}
+ 
+On the \(75\times75\) images, the multi-head model performed best (12.96 minutes), followed by 30-minute classification (17.18 minutes) and regression (65.20 minutes). On the \(150\times150\) images, the results are completely different. The multi-head model did not learn at all: its loss was stuck at the random-guessing value for all 40 epochs, and its error (176.73 minutes) is extremely high and not acceptable. Classification with 30-minute bins became the best model, with 23.55 minutes, although it's also the easiest task to perfom, and the result is still worse than the one obtained the small images. The results of the regression approach improved, from 65.20 to 49.25 minutes. A possible explanation is the fact that the regression task might have benefitted from training for 40 instead of 20 epochs. Lastly, the 1-minute classifier now learned, but it has also significantly overfitted: its training loss went down to 0.41, while its test error stayed at 130.40 minutes.
+ 
+The bigger images did not help our models: the network was chosen and tuned on the \(75\times75\) images and it shows. Possible solutions to improve the results on the \(150\times150\) images could have been: data augmentation (with larger resolution the model has finally overfit); a deeper network (a fifth convolutional layer could have produced a feature map of a size similar to the one we tuned the parameters for).
+ 
+%---------------------------------
+\subsection{Limitations}\label{sec:limitations}
+
+\begin{itemize}
+    \item A problem we saw in many experiments is that some models never start learning: the loss was stuck at the random-guessing value and the common-sense error was very high (e.g., 180 minutes). This happened with: learning rate of 0.003, with batch size 32, with \(\alpha = 1\), and with the multi-head model on the \(150\times150\) images. The other experiments were stuck for a few epochs and then started learning. 
+    \item The model we tuned the parameters on, the one for the \(75\times75\), was underfitting: looking at the images, we were supposed to apply data augmentation to account for the random transformation that the images presented. However, data augmentation could have helped if the model was overfitting, but here it was doing the opposite. Therefore, no data augmentation was applied. It might have improved the results on the \(150\times150\) images.
+    \item We used the same CNN for different tasks. There are two main reasons why this was the chosen approach: (1) computational limitations, an external GPU was used, but this task is still computationally heavy; (2) comparability, by using the same structure, we were able to have a more fair comparison of the models. However, a separate definition might have improved the results. 
+
+\end{itemize}
+
+\section{Contributions}
+\begin{description}
+    \item[Martina] Task 2 code, task 2 report
+    \item[Sanna] Task 1 code, task 1 report
+    \item[Keval] Task 1 code, task 1 report
+\end{description}
 
 \end{document}
