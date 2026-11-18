@@ -20,6 +20,16 @@ To give an idea of what images we are dealing with, we can look at 4 randomly se
 \end{figure}
 
 \subsection{Convolutional Autoencoder}
+
+After adjusting the provided code of the convolutional autoencoder to work with the butterfly dataset, we trained the model for 25 epochs. The training loss over the epochs is shown in Figure \ref{fig:cae_loss}. After 12 epochs, the loss seems to plateau, indicating that the model has learned the features of the dataset and is no longer improving. The final training loss after 25 epochs is 0.5516.
+
+\begin{figure}[htb]
+\centering	
+\includegraphics[width=0.95\textwidth]{pics/cae_training_loss.png}
+\caption{Training Loss of the Convolutional Autoencoder}
+\label{fig:cae_loss}
+\end{figure}
+
 \subsection{Variational Autoencoder}
 \subsection{Generative Adversarial Network}
 \subsection{Comparison}

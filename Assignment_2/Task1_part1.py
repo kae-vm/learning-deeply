@@ -42,8 +42,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torch.utils.data import TensorDataset, DataLoader
+from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
+from torchvision.utils import save_image
 
 ###############################################################
 # Getting the data
@@ -85,17 +86,17 @@ print("Dataset loaded successfully.")
 # Exploring the data
 ###############################################################
 # Printing 4 images from the training set
-# random_indices = random.sample(range(len(train)), 4)
-# fig, axes = plt.subplots(1, 4, figsize=(15, 3))
+random_indices = random.sample(range(len(train)), 4)
+fig, axes = plt.subplots(1, 4, figsize=(15, 3))
 
-# for i, idx in enumerate(random_indices):
-#     image_tensor, label = train[idx]
-#     image = image_tensor.permute(1, 2, 0).numpy()
-#     axes[i].imshow(image)
-#     axes[i].axis('off')
+for i, idx in enumerate(random_indices):
+    image_tensor, label = train[idx]
+    image = image_tensor.permute(1, 2, 0).numpy()
+    axes[i].imshow(image)
+    axes[i].axis('off')
 
-# plt.tight_layout()
-# plt.show()
+plt.tight_layout()
+plt.show()
 
 ###############################################################
 # Build ConvEncoder and ConvDecoder classes (from notebook)
@@ -208,7 +209,7 @@ optimizer = optim.Adam(cae.parameters(), lr=1e-3)
 criterion = nn.BCELoss()
 
 # Training the Convolutional Autoencoder to reconstruct images
-epochs = 5 # Increase to 20-50 epochs when training fully
+epochs = 25 # Increase to 20-50 epochs when training fully
 print("Starting training of Convolutional Autoencoder (CAE)")
 for epoch in range(epochs):
     cae.train()
@@ -227,8 +228,33 @@ for epoch in range(epochs):
 
     # Qualitative comparison on sample images
     cae.eval()
+    os.makedirs("Assignment_2/results/cae", exist_ok=True)
     with torch.no_grad():
         samples = torch.stack([train[i][0] for i in range(9)]).to(device)
         reconstructed = cae(samples)
-        grid_plot(samples, epoch+1, name='Original', n=3, save=False)
-        grid_plot(reconstructed, epoch+1, name='Reconstructed', n=3, save=False)
+        for i in range(len(samples)):
+            save_image(samples[i], f"Assignment_2/results/cae/og_epoch{epoch+1}_img{i+1}.png")
+            save_image(reconstructed[i], f"Assignment_2/results/cae/recon_epoch{epoch+1}_img{i+1}.png")
+
+# Make a graph of the training loss over epochs
+epochs = list(range(1, 26))
+
+losses = [
+    0.6322, 0.5919, 0.5842, 0.5800, 0.5758,
+    0.5694, 0.5670, 0.5658, 0.5635, 0.5617,
+    0.5604, 0.5591, 0.5580, 0.5572, 0.5564,
+    0.5556, 0.5549, 0.5545, 0.5543, 0.5536,
+    0.5530, 0.5526, 0.5525, 0.5521, 0.5516
+]
+
+plt.figure(figsize=(8, 5))
+plt.plot(epochs, losses, marker="o")
+plt.xlabel("Epoch")
+plt.ylabel("Reconstruction Loss")
+plt.title("CAE Training Loss")
+plt.grid(True)
+plt.tight_layout()
+
+plt.savefig("Assignment_2/texwork/pics/cae_training_loss.png", dpi=300)
+plt.show()
+
