@@ -1,0 +1,40 @@
+\input{packages}
+\setlength{\headheight}{17.12pt}
+\setlength{\parskip}{.25ex}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{1pt}
+
+\renewcommand\headrule{%
+\vspace{-6pt}
+\hrulefill
+\raisebox{-2.1pt}
+{\quad\decofourleft\decosix\decofourright\quad}%
+\hrulefill}
+
+\fancyhf[LH]{\textit{Introduction to Deep Learning}}
+\fancyhf[RH]{\textit{Page \thepage\ of \pageref{LastPage}}}
+\fancyhf[LF]{\textit{Assignment 2}}
+\fancyhf[CF]{}
+\fancyhf[RF]{\textit{Sanna Plomp, Martina Carminati, Keval Mehta}}
+
+\newfontfamily{\Rasa}[
+  NFSSFamily=Rasa,
+  Path={Rasa/},
+  Extension = .ttf,
+  Ligatures = TeX,
+  UprightFont = *-Regular,
+  BoldFont = *-Bold,
+  ItalicFont = *-Italic,
+  BoldItalicFont = *-BoldItalic,
+  FontFace={l}{n}{*-Light},
+  FontFace={l}{it}{*-LightItalic},
+  FontFace={mb}{n}{*-Medium},
+  FontFace={mb}{it}{*-MediumItalic},
+  scale=1.15
+]{Rasa}
+
+\renewcommand{\familydefault}{Rasa}%
+
+\titleformat{\section}{\bfseries\centering\Large}{}{0em}{}
+\titleformat{\subsection}{\bfseries\centering\large}{}{0em}{}
