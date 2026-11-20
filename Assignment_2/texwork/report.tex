@@ -31,6 +31,34 @@ After adjusting the provided code of the convolutional autoencoder to work with 
 \end{figure}
 
 \subsection{Variational Autoencoder}
+
+After adjusting the provided code of the variational autoencoder to work with the butterfly dataset, we trained the model for 25 epochs. The training loss over the epochs is shown in Figure \ref{fig:vae_loss}. The final training loss after 25 epochs is 7032.8228.
+
+\begin{figure}[htb]
+\centering	
+\includegraphics[width=0.95\textwidth]{pics/vae_training_loss.png}
+\caption{Training Loss of the Variational Autoencoder}
+\label{fig:vae_loss}
+\end{figure}
+
+Something about the generated images shown in Figure \ref{fig:vae_generated} and how they compare to the original images. 
+
+\begin{figure}[htb]
+\centering	
+\includegraphics[width=0.95\textwidth]{pics/vae_generated_epoch25.png}
+\caption{Generated Images from the Variational Autoencoder}
+\label{fig:vae_generated}
+\end{figure}
+
+Also, something about the reconstructed images and how they compare to the original images, as shown in Figure \ref{fig:vae_reconstructed}. Also, something about the latent space and how it can be used for generating new images.
+
+\begin{figure}[htb]
+\centering	
+\includegraphics[width=0.95\textwidth]{pics/vae_reconstructions_test.png}
+\caption{Reconstructed Images from the Variational Autoencoder}
+\label{fig:vae_reconstructed}
+\end{figure}
+
 \subsection{Generative Adversarial Network}
 \subsection{Comparison}
 
